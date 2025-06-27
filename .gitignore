@@ -1,0 +1,7 @@
+# Diretórios de compilação
+/bin/
+/build/
+/out/
+
+# Diretório Maven
+/target/
