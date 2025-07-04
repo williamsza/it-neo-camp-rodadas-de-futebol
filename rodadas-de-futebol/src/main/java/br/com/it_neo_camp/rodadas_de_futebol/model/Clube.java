@@ -1,32 +1,42 @@
 package br.com.it_neo_camp.rodadas_de_futebol.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+
+
+@Entity
 public class Clube {
 
-    private long uuid;
-    private String nome;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @NotNull
+    @Size(min = 2)
+    private String nomeClube;
     private Integer totalPontos;
     private Integer totalGols;
     private Integer totalVitorias;
     private Integer totalJogos;
+    @NotBlank
+    private String siglaEstado;
+    private String estadoClube;
+    private String dataCriacao;
 
-    private String sigla;
-    private String estado;
-    private String data;
-
-    public long getUuid() {
-        return uuid;
+    public long getId() {
+        return id;
     }
 
-    public void setUuid(long uuid) {
-        this.uuid = uuid;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeClube() {
+        return nomeClube;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeClube(String nomeClube) {
+        this.nomeClube = nomeClube;
     }
 
     public Integer getTotalPontos() {
@@ -61,27 +71,27 @@ public class Clube {
         this.totalJogos = totalJogos;
     }
 
-    public String getSigla() {
-        return sigla;
+    public String getSiglaEstado() {
+        return siglaEstado;
     }
 
-    public void setSigla(String sigla) {
-        this.sigla = sigla;
+    public void setSiglaEstado(String siglaEstado) {
+        this.siglaEstado = siglaEstado;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getEstadoClube() {
+        return estadoClube;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setEstadoClube(String estadoClube) {
+        this.estadoClube = estadoClube;
     }
 
-    public String getData() {
-        return data;
+    public String getDataCriacao() {
+        return dataCriacao;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setDataCriacao(String dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 }
