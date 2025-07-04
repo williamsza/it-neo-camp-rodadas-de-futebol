@@ -1,8 +1,14 @@
 package br.com.it_neo_camp.rodadas_de_futebol.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.time.LocalDateTime;
 
 public class Partida {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long partidaId;
     private Clube clubeMandante;
     private Clube clubeVisitante;
