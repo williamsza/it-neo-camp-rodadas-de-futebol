@@ -1,7 +1,13 @@
 package br.com.it_neo_camp.rodadas_de_futebol.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 public class Estadio {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long estadioId;
     private String nomeEstadio;
 
