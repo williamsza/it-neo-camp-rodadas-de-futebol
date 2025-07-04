@@ -1,52 +1,61 @@
 package br.com.it_neo_camp.rodadas_de_futebol.dto;
 
+import jakarta.validation.constraints.*;
+
 import java.time.LocalDate;
 
 public class ClubeRequestDto {
 
-    private String nome;
-    private String estado;
-    private String sigla;
-    private LocalDate data;
-    private Boolean status;
+    @NotBlank
+    @Size(min = 2, message = "Nome do clube deve ter ao menos 2 letras.")
+    private String nomeClubeDto;
+    private String estadoDoClubeDto;
+    @NotBlank(message = "Sigla do Estado é obrigatória.")
+    @Pattern(regexp = "AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO", message = "Sigla do Estado deve ser uma UF válida do Brasil.")
+    private String siglaEstadoDto;
+    @NotNull(message = "Data de criação é obrigatória.")
+    @PastOrPresent(message = "Data de criação não pode estar no futuro.")
+    private LocalDate dataCriacaoDto;
+    @NotNull(message = "O campo 'ativo' é obrigatório.")
+    private Boolean statusClubeDto;
 
-    public String getNome() {
-        return nome;
+    public String getNomeClubeDto() {
+        return nomeClubeDto;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeClubeDto(String nomeClubeDto) {
+        this.nomeClubeDto = nomeClubeDto;
     }
 
-    public String getSigla() {
-        return sigla;
+    public String getSiglaEstadoDto() {
+        return siglaEstadoDto;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getEstadoDoClubeDto() {
+        return estadoDoClubeDto;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setEstadoDoClubeDto(String estadoDoClubeDto) {
+        this.estadoDoClubeDto = estadoDoClubeDto;
     }
 
-    public void setSigla(String sigla) {
-        this.sigla = sigla;
+    public void setSiglaEstadoDto(String siglaEstadoDto) {
+        this.siglaEstadoDto = siglaEstadoDto;
     }
 
-    public LocalDate getData() {
-        return data;
+    public LocalDate getDataCriacaoDto() {
+        return dataCriacaoDto;
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
+    public void setDataCriacaoDto(LocalDate dataCriacaoDto) {
+        this.dataCriacaoDto = dataCriacaoDto;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public Boolean getStatusClubeDto() {
+        return statusClubeDto;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setStatusClubeDto(Boolean statusClubeDto) {
+        this.statusClubeDto = statusClubeDto;
     }
 }
