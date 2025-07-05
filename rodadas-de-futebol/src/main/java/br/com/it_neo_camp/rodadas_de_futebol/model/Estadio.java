@@ -1,9 +1,10 @@
 package br.com.it_neo_camp.rodadas_de_futebol.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+@Entity
 public class Estadio {
 
     @Id
