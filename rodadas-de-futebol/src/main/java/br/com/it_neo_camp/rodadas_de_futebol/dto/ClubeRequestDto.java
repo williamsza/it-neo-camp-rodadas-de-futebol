@@ -8,57 +8,59 @@ public class ClubeRequestDto {
 
     @NotBlank
     @Size(min = 2, message = "Nome do clube deve ter ao menos 2 letras.")
-    private String nomeClubeDto;
-    private String estadoDoClubeDto;
+    private String nomeClube;
+    private String estadoDoClube;
     @NotBlank(message = "Sigla do Estado é obrigatória.")
     @Pattern(regexp = "AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO", message = "Sigla do Estado deve ser uma UF válida do Brasil.")
-    private String siglaEstadoDto;
+    private String siglaEstado;
     @NotNull(message = "Data de criação é obrigatória.")
     @PastOrPresent(message = "Data de criação não pode estar no futuro.")
-    private LocalDate dataCriacaoDto;
+    private LocalDate dataCriacao;
     @NotNull(message = "O campo 'ativo' é obrigatório.")
-    private Boolean statusClubeDto;
+    private Boolean statusClube;
 
-    public String getNomeClubeDto() {
-        return nomeClubeDto;
+    public String getNomeClube() {
+        return nomeClube;
     }
 
-    public void setNomeClubeDto(String nomeClubeDto) {
-        this.nomeClubeDto = nomeClubeDto;
+    public void setNomeClube(String nomeClube) {
+        this.nomeClube = nomeClube;
     }
+
+    public String getSiglaEstado() {
+        return siglaEstado;
+    }
+
+    public String getEstadoDoClube() {
+        return estadoDoClube;
+    }
+
+    public void setEstadoDoClube(String estadoDoClube) {
+        this.estadoDoClube = estadoDoClube;
+    }
+
+    public void setSiglaEstado(String siglaEstado) {
+        this.siglaEstado = siglaEstado;
+    }
+
+    public LocalDate getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDate dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public Boolean getStatusClube() {
+        return statusClube;
+    }
+
+    public void setStatusClube(Boolean statusClube) {
+        this.statusClube = statusClube;
+    }
+
 
     public String getSiglaEstadoDto() {
-        return siglaEstadoDto;
+        return siglaEstado;
     }
-
-    public String getEstadoDoClubeDto() {
-        return estadoDoClubeDto;
-    }
-
-    public void setEstadoDoClubeDto(String estadoDoClubeDto) {
-        this.estadoDoClubeDto = estadoDoClubeDto;
-    }
-
-    public void setSiglaEstadoDto(String siglaEstadoDto) {
-        this.siglaEstadoDto = siglaEstadoDto;
-    }
-
-    public LocalDate getDataCriacaoDto() {
-        return dataCriacaoDto;
-    }
-
-    public void setDataCriacaoDto(LocalDate dataCriacaoDto) {
-        this.dataCriacaoDto = dataCriacaoDto;
-    }
-
-    public Boolean getStatusClubeDto() {
-        return statusClubeDto;
-    }
-
-    public void setStatusClubeDto(Boolean statusClubeDto) {
-        this.statusClubeDto = statusClubeDto;
-    }
-
-
-
 }

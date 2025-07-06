@@ -2,6 +2,7 @@ package br.com.it_neo_camp.rodadas_de_futebol.controller;
 
 import br.com.it_neo_camp.rodadas_de_futebol.dto.ClubeRequestDto;
 import br.com.it_neo_camp.rodadas_de_futebol.dto.ClubeResponseDto;
+import br.com.it_neo_camp.rodadas_de_futebol.exception.ClubeExistenteException;
 import br.com.it_neo_camp.rodadas_de_futebol.service.ClubeService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -19,12 +20,12 @@ public class ClubeController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrarNovoClubestrarClube(@Valid @RequestBody ClubeRequestDto request) {
+    public ResponseEntity<Object> cadastrarNovoClube(@Valid @RequestBody ClubeRequestDto request) {
 
         try {
             ClubeResponseDto response = clubeService.cadastraNovoClube(request);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (RuntimeException e) {
+        } catch (ClubeExistenteException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

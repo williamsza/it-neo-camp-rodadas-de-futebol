@@ -13,16 +13,23 @@ public class ClubeResponseDto {
     private LocalDate dataDeCriacao;
     private Boolean statusClube;
 
-    public ClubeResponseDto(Long id, String nomeClube, String estadoDoClube, String siglaDoClube, LocalDate dataDeCriacao, Boolean statusClube) {
+    public ClubeResponseDto(Long id, String nomeClube, String estadoDoClube, String siglaDoClube, LocalDate dataDeCriacao, Boolean statusClube,Clube clubeSalvo) {
         this.id = id;
         this.nomeClube = nomeClube;
         this.estadoDoClube = estadoDoClube;
         this.siglaDoClube = siglaDoClube;
         this.dataDeCriacao = dataDeCriacao;
         this.statusClube = statusClube;
+
     }
 
     public ClubeResponseDto(Clube clubeSalvo) {
+        this.id = clubeSalvo.getClubeId();
+        this.nomeClube = clubeSalvo.getNomeClube();
+        this.estadoDoClube = clubeSalvo.getEstadoClube();
+        this.siglaDoClube = clubeSalvo.getSiglaEstado();
+        this.dataDeCriacao = clubeSalvo.getDataCriacao();
+        this.statusClube = clubeSalvo.isStatusClube();
     }
 
     public Long getId() {

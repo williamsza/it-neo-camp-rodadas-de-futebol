@@ -9,8 +9,6 @@ import br.com.it_neo_camp.rodadas_de_futebol.repository.ClubeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.Locale;
-
 @Service
 public class ClubeService {
     private final ClubeRepository repository;
@@ -21,19 +19,19 @@ public class ClubeService {
 
     @Transactional
     public ClubeResponseDto cadastraNovoClube(ClubeRequestDto request) {
-        if (repository.existsByNomeClube(request.getNomeClubeDto())) {
-            throw new ClubeExistenteException(request.getNomeClubeDto());
+        if (repository.existsByNomeClube(request.getNomeClube())) {
+            throw new ClubeExistenteException(request.getNomeClube());
 
         }
         String sigla = request.getSiglaEstadoDto();
         if (sigla == null || sigla.length() != 2) {
-            throw new EstadoInvalidoException(sigla);
+           throw new EstadoInvalidoException(sigla);
         }
 
         Clube novoClube = new Clube();
-        novoClube.setNomeClube(request.getNomeClubeDto());
+        novoClube.setNomeClube(request.getNomeClube());
         novoClube.setSiglaEstado(sigla.toUpperCase());
-        novoClube.setDataCriacao(request.getDataCriacaoDto());
+        novoClube.setDataCriacao(request.getDataCriacao());
 
         Clube clubeSalvo = repository.save(novoClube);
 
@@ -41,5 +39,68 @@ public class ClubeService {
 
     }
 
+    private String mapearSiglaParaEstado(String sigla) {
+        switch (sigla.toUpperCase()) {
+            case "AC":
+                return "Acre";
+            case "AL":
+                return "Alagoas";
+            case "AP":
+                return "Amapá";
+            case "AM":
+                return "Amazonas";
+            case "BA":
+                return "Bahia";
+            case "CE":
+                return "Ceará";
+            case "DF":
+                return "Distrito Federal";
+            case "ES":
+                return "Espírito Santo";
+            case "GO":
+                return "Goiás";
+            case "MA":
+                return "Maranhão";
+            case "MT":
+                return "Mato Grosso";
+            case "MS":
+                return "Mato Grosso do Sul";
+            case "MG":
+                return "Minas Gerais";
+            case "PA":
+                return "Pará";
+            case "PB":
+                return "Paraíba";
+            case "PR":
+                return "Paraná";
+            case "PE":
+                return "Pernambuco";
+            case "PI":
+                return "Piauí";
+            case "RJ":
+                return "Rio de Janeiro";
+            case "RN":
+                return "Rio Grande do Norte";
+            case "RS":
+                return "Rio Grande do Sul";
+            case "RO":
+                return "Rondônia";
+            case "RR":
+                return "Roraima";
+            case "SC":
+                return "Santa Catarina";
+            case "SP":
+                return "São Paulo";
+            case "SE":
+                return "Sergipe";
+            case "TO":
+                return "Tocantins";
+            default:
+                return "Sigla não reconhecida";
+
+
+        }
+
+    }
 
 }

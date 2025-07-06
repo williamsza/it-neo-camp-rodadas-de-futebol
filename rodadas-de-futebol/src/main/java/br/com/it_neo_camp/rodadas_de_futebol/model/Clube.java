@@ -25,6 +25,8 @@ public class Clube {
     private String siglaEstado;
     private String estadoClube;
     private LocalDate dataCriacao;
+    @NotNull
+    private boolean statusClube;
 
     public long getClubeId() {
         return clubeId;
@@ -96,5 +98,13 @@ public class Clube {
 
     public void setDataCriacao(LocalDate dataCriacao) {
         this.dataCriacao = dataCriacao;
+    }
+
+    public boolean isStatusClube() {
+        return statusClube;
+    }
+
+    public void setStatusClube(boolean statusClube) {
+        this.statusClube = statusClube;
     }
 }
