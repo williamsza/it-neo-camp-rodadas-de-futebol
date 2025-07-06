@@ -3,11 +3,13 @@ package br.com.it_neo_camp.rodadas_de_futebol.service;
 import br.com.it_neo_camp.rodadas_de_futebol.dto.ClubeRequestDto;
 import br.com.it_neo_camp.rodadas_de_futebol.dto.ClubeResponseDto;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.ClubeExistenteException;
+import br.com.it_neo_camp.rodadas_de_futebol.exception.ClubeNaoEncontradoException;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.EstadoInvalidoException;
 import br.com.it_neo_camp.rodadas_de_futebol.model.Clube;
 import br.com.it_neo_camp.rodadas_de_futebol.repository.ClubeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -106,9 +108,20 @@ public class ClubeService {
 
     }
 
+
     public List<ClubeResponseDto> listarTodosClubes() {
         return repository.findAll().stream()
                 .map(ClubeResponseDto::new)
                 .collect(Collectors.toList());
     }
+
+    public ClubeResponseDto buscarClubePorId(Long id) {
+        Clube clube = repository.findById(id).filter(Clube::isAtivo).orElseThrow(() -> new ClubeNaoEncontradoException(id));
+        return new ClubeResponseDto(clube);
+
+
+    }
+
+
 }
+
