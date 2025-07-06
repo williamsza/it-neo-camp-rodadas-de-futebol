@@ -31,16 +31,17 @@ public class ClubeRequestDto {
         return siglaEstado;
     }
 
+    public void setSiglaEstado(String siglaEstado) {
+        this.siglaEstado = siglaEstado;
+    }
+
+
     public String getEstadoDoClube() {
         return estadoDoClube;
     }
 
     public void setEstadoDoClube(String estadoDoClube) {
         this.estadoDoClube = estadoDoClube;
-    }
-
-    public void setSiglaEstado(String siglaEstado) {
-        this.siglaEstado = siglaEstado;
     }
 
     public LocalDate getDataCriacao() {
@@ -60,7 +61,5 @@ public class ClubeRequestDto {
     }
 
 
-    public String getSiglaEstadoDto() {
-        return siglaEstado;
-    }
+
 }

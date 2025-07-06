@@ -9,6 +9,9 @@ import br.com.it_neo_camp.rodadas_de_futebol.repository.ClubeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ClubeService {
     private final ClubeRepository repository;
@@ -23,9 +26,9 @@ public class ClubeService {
             throw new ClubeExistenteException(request.getNomeClube());
 
         }
-        String sigla = request.getSiglaEstadoDto();
+        String sigla = request.getSiglaEstado();
         if (sigla == null || sigla.length() != 2) {
-           throw new EstadoInvalidoException(sigla);
+            throw new EstadoInvalidoException(sigla);
         }
 
         Clube novoClube = new Clube();
@@ -103,4 +106,9 @@ public class ClubeService {
 
     }
 
+    public List<ClubeResponseDto> listarTodosClubes() {
+        return repository.findAll().stream()
+                .map(ClubeResponseDto::new)
+                .collect(Collectors.toList());
+    }
 }

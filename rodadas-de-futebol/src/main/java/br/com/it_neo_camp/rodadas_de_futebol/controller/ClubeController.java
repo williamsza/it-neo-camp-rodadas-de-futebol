@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/clubes")
 public class ClubeController {
@@ -28,6 +30,12 @@ public class ClubeController {
         } catch (ClubeExistenteException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ClubeResponseDto>> listarTodosClubes() {
+        List<ClubeResponseDto> clubes = clubeService.listarTodosClubes();
+        return ResponseEntity.ok(clubes);
     }
 
 
