@@ -1,0 +1,9 @@
+#spring:
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/admin?useSSL=false&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true
+#    username: admin
+#    password: 5382
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: update

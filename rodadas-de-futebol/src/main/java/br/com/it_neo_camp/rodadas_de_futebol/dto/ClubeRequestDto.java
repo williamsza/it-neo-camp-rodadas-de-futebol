@@ -58,4 +58,7 @@ public class ClubeRequestDto {
     public void setStatusClubeDto(Boolean statusClubeDto) {
         this.statusClubeDto = statusClubeDto;
     }
+
+
+
 }

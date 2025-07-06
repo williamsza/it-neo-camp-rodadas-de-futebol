@@ -4,13 +4,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+import java.time.LocalDate;
+
 
 @Entity
+@Table(name = "clubes")
 public class Clube {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long clubeId;
     @NotNull
     @Size(min = 2)
     private String nomeClube;
@@ -21,14 +24,14 @@ public class Clube {
     @NotBlank
     private String siglaEstado;
     private String estadoClube;
-    private String dataCriacao;
+    private LocalDate dataCriacao;
 
-    public long getId() {
-        return id;
+    public long getClubeId() {
+        return clubeId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setClubeId(long clubeId) {
+        this.clubeId = clubeId;
     }
 
     public String getNomeClube() {
@@ -87,11 +90,11 @@ public class Clube {
         this.estadoClube = estadoClube;
     }
 
-    public String getDataCriacao() {
+    public LocalDate getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(String dataCriacao) {
+    public void setDataCriacao(LocalDate dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 }
