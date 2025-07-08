@@ -52,5 +52,20 @@ public class ClubeController {
 
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> atualizarClube(@PathVariable Long id,@Valid @RequestBody ClubeRequestDto request ){
+        try {
+            ClubeResponseDto response = clubeService.atualizarClube(id,request);
+            return ResponseEntity.ok(response);
+        } catch (ClubeNaoEncontradoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (ClubeExistenteException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+
+        }
+
+
+    }
+
 
 }

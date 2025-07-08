@@ -122,5 +122,25 @@ public class ClubeService {
     }
 
 
+    @Transactional
+    public ClubeResponseDto atualizarClube(Long id, ClubeRequestDto request) {
+        Clube clube = repository.findById(id).filter(Clube::isAtivo)
+                .orElseThrow(() -> new ClubeNaoEncontradoException(id));
+
+        if (repository.existsByNomeClube(request.getNomeClube()) && !clube.getNomeClube().equals(request.getNomeClube())) {
+            throw new ClubeExistenteException(request.getNomeClube());
+
+
+        }
+        clube.setNomeClube(request.getNomeClube());
+        clube.setSiglaEstado(request.getSiglaEstado());
+        clube.setEstadoClube(request.getEstadoDoClube());
+        clube.setDataCriacao(request.getDataCriacao());
+        clube.setStatusClube(request.getStatusClube());
+
+        Clube clubeAtualizado = repository.save(clube);
+        return new ClubeResponseDto(clubeAtualizado);
+
+    }
 }
 
