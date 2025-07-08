@@ -9,7 +9,6 @@ import br.com.it_neo_camp.rodadas_de_futebol.model.Clube;
 import br.com.it_neo_camp.rodadas_de_futebol.repository.ClubeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;
