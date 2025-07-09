@@ -6,7 +6,7 @@ import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDateTime;
 
-public class PartidasRequestDto {
+public class PartidaRequestDto {
 
     @NotNull(message = "O ID do clube mandante é obrigatório.")
     private Long clubeMandanteId;
