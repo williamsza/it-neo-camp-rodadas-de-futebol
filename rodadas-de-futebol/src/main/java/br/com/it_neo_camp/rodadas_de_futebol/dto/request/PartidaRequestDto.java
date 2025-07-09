@@ -1,5 +1,6 @@
 package br.com.it_neo_camp.rodadas_de_futebol.dto.request;
 
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -23,6 +24,7 @@ public class PartidaRequestDto {
     private Integer placarVisitante;
     @NotNull(message = "A data e hora da partida são obrigatórias.")
     @PastOrPresent(message = "A data e hora da partida não podem estar no futuro.")
+    @FutureOrPresent(message = "A data da partida não pode ser no passado.")
     private LocalDateTime dataHora;
 
     public Long getClubeMandanteId() {
