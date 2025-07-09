@@ -1,4 +1,4 @@
-package br.com.it_neo_camp.rodadas_de_futebol.dto;
+package br.com.it_neo_camp.rodadas_de_futebol.dto.response;
 
 import br.com.it_neo_camp.rodadas_de_futebol.model.Clube;
 

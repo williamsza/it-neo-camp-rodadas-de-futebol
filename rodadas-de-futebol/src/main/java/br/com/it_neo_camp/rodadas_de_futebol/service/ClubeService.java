@@ -1,10 +1,11 @@
 package br.com.it_neo_camp.rodadas_de_futebol.service;
 
-import br.com.it_neo_camp.rodadas_de_futebol.dto.ClubeRequestDto;
-import br.com.it_neo_camp.rodadas_de_futebol.dto.ClubeResponseDto;
+import br.com.it_neo_camp.rodadas_de_futebol.dto.request.ClubeRequestDto;
+import br.com.it_neo_camp.rodadas_de_futebol.dto.response.ClubeResponseDto;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.ClubeExistenteException;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.ClubeNaoEncontradoException;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.EstadoInvalidoException;
+import br.com.it_neo_camp.rodadas_de_futebol.exception.OperacaoClubeInvalidaException;
 import br.com.it_neo_camp.rodadas_de_futebol.model.Clube;
 import br.com.it_neo_camp.rodadas_de_futebol.repository.ClubeRepository;
 import jakarta.transaction.Transactional;
@@ -141,6 +142,17 @@ public class ClubeService {
         Clube clubeAtualizado = repository.save(clube);
         return new ClubeResponseDto(clubeAtualizado);
 
+    }
+
+    @Transactional
+    public void deletarClube(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ClubeNaoEncontradoException(id);
+        }
+        if (!repository.findById(id).get().isAtivo()) {
+            throw new OperacaoClubeInvalidaException("Clube ja esta desativado");
+
+        }
     }
 }
 

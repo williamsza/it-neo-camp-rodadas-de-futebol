@@ -1,9 +1,10 @@
 package br.com.it_neo_camp.rodadas_de_futebol.controller;
 
-import br.com.it_neo_camp.rodadas_de_futebol.dto.ClubeRequestDto;
-import br.com.it_neo_camp.rodadas_de_futebol.dto.ClubeResponseDto;
+import br.com.it_neo_camp.rodadas_de_futebol.dto.request.ClubeRequestDto;
+import br.com.it_neo_camp.rodadas_de_futebol.dto.response.ClubeResponseDto;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.ClubeExistenteException;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.ClubeNaoEncontradoException;
+import br.com.it_neo_camp.rodadas_de_futebol.exception.OperacaoClubeInvalidaException;
 import br.com.it_neo_camp.rodadas_de_futebol.service.ClubeService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -53,18 +54,30 @@ public class ClubeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> atualizarClube(@PathVariable Long id,@Valid @RequestBody ClubeRequestDto request ){
+    public ResponseEntity<Object> atualizarClube(@PathVariable Long id, @Valid @RequestBody ClubeRequestDto request) {
         try {
-            ClubeResponseDto response = clubeService.atualizarClube(id,request);
+            ClubeResponseDto response = clubeService.atualizarClube(id, request);
             return ResponseEntity.ok(response);
         } catch (ClubeNaoEncontradoException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (ClubeExistenteException e){
+        } catch (ClubeExistenteException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
 
         }
 
 
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deletarClube(@PathVariable Long id) {
+        try {
+            clubeService.deletarClube(id);
+            return ResponseEntity.noContent().build();
+        } catch (ClubeNaoEncontradoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (OperacaoClubeInvalidaException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 
