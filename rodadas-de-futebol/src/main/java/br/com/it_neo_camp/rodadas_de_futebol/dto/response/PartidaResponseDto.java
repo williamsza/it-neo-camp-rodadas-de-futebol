@@ -4,15 +4,28 @@ import java.time.LocalDateTime;
 
 public class PartidaResponseDto {
     private Long id;
+    private LocalDateTime dataPartida;
     private Long clubeMandanteId;
-    private String clubeMandanteNome;
+    private String nomeMandante;
     private Long clubeVisistanteId;
-    private String clubeVisitanteNome;
+    private String nomeVisitante;
     private Long estadioId;
     private String estadioNome;
     private Integer placarMandante;
     private Integer placarVisitante;
-    private LocalDateTime dataHora;
+
+    public PartidaResponseDto(Long id, LocalDateTime dataPartida, Long clubeMandanteId, String nomeMandante, Long clubeVisistanteId, String nomeVisitante, Long estadioId, String estadioNome, Integer placarMandante, Integer placarVisitante) {
+        this.id = id;
+        this.dataPartida = dataPartida;
+        this.clubeMandanteId = clubeMandanteId;
+        this.nomeMandante = nomeMandante;
+        this.clubeVisistanteId = clubeVisistanteId;
+        this.nomeVisitante = nomeVisitante;
+        this.estadioId = estadioId;
+        this.estadioNome = estadioNome;
+        this.placarMandante = placarMandante;
+        this.placarVisitante = placarVisitante;
+    }
 
     public Long getId() {
         return id;
@@ -30,12 +43,12 @@ public class PartidaResponseDto {
         this.clubeMandanteId = clubeMandanteId;
     }
 
-    public String getClubeMandanteNome() {
-        return clubeMandanteNome;
+    public String getNomeMandante() {
+        return nomeMandante;
     }
 
-    public void setClubeMandanteNome(String clubeMandanteNome) {
-        this.clubeMandanteNome = clubeMandanteNome;
+    public void setNomeMandante(String nomeMandante) {
+        this.nomeMandante = nomeMandante;
     }
 
     public Long getClubeVisistanteId() {
@@ -46,12 +59,12 @@ public class PartidaResponseDto {
         this.clubeVisistanteId = clubeVisistanteId;
     }
 
-    public String getClubeVisitanteNome() {
-        return clubeVisitanteNome;
+    public String getNomeVisitante() {
+        return nomeVisitante;
     }
 
-    public void setClubeVisitanteNome(String clubeVisitanteNome) {
-        this.clubeVisitanteNome = clubeVisitanteNome;
+    public void setNomeVisitante(String nomeVisitante) {
+        this.nomeVisitante = nomeVisitante;
     }
 
     public Long getEstadioId() {
@@ -86,11 +99,11 @@ public class PartidaResponseDto {
         this.placarVisitante = placarVisitante;
     }
 
-    public LocalDateTime getDataHora() {
-        return dataHora;
+    public LocalDateTime getDataPartida() {
+        return dataPartida;
     }
 
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
+    public void setDataPartida(LocalDateTime dataPartida) {
+        this.dataPartida = dataPartida;
     }
 }

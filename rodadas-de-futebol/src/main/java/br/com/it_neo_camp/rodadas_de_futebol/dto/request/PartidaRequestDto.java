@@ -9,8 +9,15 @@ import java.time.LocalDateTime;
 
 public class PartidaRequestDto {
 
+
+    @NotNull(message = "A data e hora da partida são obrigatórias.")
+    @PastOrPresent(message = "A data e hora da partida não podem estar no futuro.")
+    @FutureOrPresent(message = "A data da partida não pode ser no passado.")
+    private LocalDateTime dataHora;
+
     @NotNull(message = "O ID do clube mandante é obrigatório.")
     private Long clubeMandanteId;
+
     @NotNull(message = "O ID do clube visitante é obrigatório.")
     private Long clubeVisitanteId;
     @NotNull(message = "O ID do estádio é obrigatório.")
@@ -22,10 +29,6 @@ public class PartidaRequestDto {
     @NotNull(message = "O placar do visitante é obrigatório.")
     @Min(value = 0, message = "O placar do visitante não pode ser negativo.")
     private Integer placarVisitante;
-    @NotNull(message = "A data e hora da partida são obrigatórias.")
-    @PastOrPresent(message = "A data e hora da partida não podem estar no futuro.")
-    @FutureOrPresent(message = "A data da partida não pode ser no passado.")
-    private LocalDateTime dataHora;
 
     public Long getClubeMandanteId() {
         return clubeMandanteId;
