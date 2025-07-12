@@ -7,6 +7,13 @@ public class EstadioRequestDto {
 
     @NotBlank(message = "Nome do estádio é obrigatório.")
     @Size(min = 3, message = "Nome do estádio deve ter ao menos 3 caracteres.")
-    private String nomeEstadioDto;
+    private String nomeEstadio;
 
+    public String getNomeEstadio() {
+        return nomeEstadio;
+    }
+
+    public void setNomeEstadio(String nomeEstadio) {
+        this.nomeEstadio = nomeEstadio;
+    }
 }
