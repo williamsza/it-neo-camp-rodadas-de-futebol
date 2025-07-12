@@ -1,12 +1,15 @@
 package br.com.it_neo_camp.rodadas_de_futebol.service;
 
 import br.com.it_neo_camp.rodadas_de_futebol.dto.request.EstadioRequestDto;
+import br.com.it_neo_camp.rodadas_de_futebol.dto.request.EstadioUpdateDto;
 import br.com.it_neo_camp.rodadas_de_futebol.dto.response.EstadioResponseDto;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.EstadioExistenteException;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.EstadioNaoEncontradoException;
 import br.com.it_neo_camp.rodadas_de_futebol.model.Estadio;
 import br.com.it_neo_camp.rodadas_de_futebol.repository.EstadioRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,4 +52,17 @@ public class EstadioService {
     }
 
 
+    public EstadioResponseDto atualizarEstadio(Long id, @Valid EstadioUpdateDto updateDto)   {
+        Estadio estadio = repository.findById(id)
+                .orElseThrow(() -> new EstadioNaoEncontradoException(id));
+
+        if (repository.existsByNomeEstadioIgnoreCase(updateDto.getNomeEstadio()) &&
+                !estadio.getNomeEstadio().equalsIgnoreCase(updateDto.getNomeEstadio())) {
+            throw new EstadioExistenteException(updateDto.getNomeEstadio());
+
+        }
+        estadio.setNomeEstadio(updateDto.getNomeEstadio());
+        Estadio estadioAtualizado = repository.save(estadio);
+        return new EstadioResponseDto(estadioAtualizado);
+    }
 }
