@@ -10,18 +10,18 @@ public class Estadio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long estadioId;
+    private Long estadio;
     @NotBlank(message = "O nome do estádio é obrigatório.")
     @Size(min = 3, message = "O nome do estádio deve ter no mínimo 3 caracteres.")
     @Column(unique = true, nullable = false)
     private String nomeEstadio;
 
-    public Long getEstadioId() {
-        return estadioId;
+    public Long getEstadio() {
+        return estadio;
     }
 
-    public void setEstadioId(Long estadioId) {
-        this.estadioId = estadioId;
+    public void setEstadio(Long estadio) {
+        this.estadio = estadio;
     }
 
     public String getNomeEstadio() {

@@ -11,8 +11,9 @@ public class EstadioResponseDto {
         this.nome = nome;
     }
 
-    /*Preciso Rever esse construtor*/
     public EstadioResponseDto(Estadio estadioSalvo) {
+        this.id = estadioSalvo.getEstadio();
+        this.nome = estadioSalvo.getNomeEstadio();
     }
 
     public Long getId() {

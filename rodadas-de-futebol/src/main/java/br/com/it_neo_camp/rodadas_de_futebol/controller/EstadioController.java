@@ -6,22 +6,36 @@ import br.com.it_neo_camp.rodadas_de_futebol.dto.response.EstadioResponseDto;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.EstadioExistenteException;
 import br.com.it_neo_camp.rodadas_de_futebol.service.EstadioService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/estadoios")
+@RequestMapping("/estadios")
 public class EstadioController {
+    @Autowired
     private EstadioService estadioService;
 
 
     @PostMapping
     public ResponseEntity<EstadioResponseDto> cadastrarEstadio(@Valid @RequestBody EstadioRequestDto request) throws EstadioExistenteException {
-    EstadioResponseDto response = estadioService.cadastrarEstadio(request);
-    return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        EstadioResponseDto response = estadioService.cadastrarEstadio(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<EstadioResponseDto>> listarTodosEstadios() {
+        List<EstadioResponseDto> estadios = estadioService.listarTodosEstadios();
+        return ResponseEntity.ok(estadios);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<EstadioResponseDto> boscarEstadioPorId(@PathVariable Long id) {
+        EstadioResponseDto response = estadioService.buscarEstadioPorId(id);
+        return ResponseEntity.ok(response);
+
     }
 }
