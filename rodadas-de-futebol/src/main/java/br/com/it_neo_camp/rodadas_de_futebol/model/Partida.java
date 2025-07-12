@@ -1,6 +1,7 @@
 package br.com.it_neo_camp.rodadas_de_futebol.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 @Entity
@@ -12,6 +13,7 @@ public class Partida {
     @ManyToOne
     @JoinColumn(name = "clube_mandante_id", nullable = false)
     private Clube clubeMandante;
+
     @ManyToOne
     @JoinColumn(name = "clube_visitante_id", nullable = false)
     private Clube clubeVisitante;
@@ -21,11 +23,14 @@ public class Partida {
     private Integer golsMandante;
     private Integer placarVisitante;
     private LocalDateTime dataHora;
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private StatosPartida statosPartida;
 
     public Partida() {
     }
 
-    public Partida(long partidaId, Clube clubeMandante, Clube clubeVisitante, Estadio estadio, Integer golsMandante, Integer placarVisitante, LocalDateTime dataHora) {
+    public Partida(long partidaId, Clube clubeMandante, Clube clubeVisitante, Estadio estadio, Integer golsMandante, Integer placarVisitante, LocalDateTime dataHora, StatosPartida statosPartida) {
         this.partidaId = partidaId;
         this.clubeMandante = clubeMandante;
         this.clubeVisitante = clubeVisitante;
@@ -33,6 +38,7 @@ public class Partida {
         this.golsMandante = golsMandante;
         this.placarVisitante = placarVisitante;
         this.dataHora = dataHora;
+        this.statosPartida = statosPartida;
     }
 
     public long getPartidaId() {
@@ -89,5 +95,13 @@ public class Partida {
 
     public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
+    }
+
+    public StatosPartida getStatosPartida() {
+        return statosPartida;
+    }
+
+    public void setStatosPartida(StatosPartida statosPartida) {
+        this.statosPartida = statosPartida;
     }
 }
