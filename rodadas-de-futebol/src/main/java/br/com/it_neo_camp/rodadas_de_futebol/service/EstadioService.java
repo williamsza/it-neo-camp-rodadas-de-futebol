@@ -52,7 +52,8 @@ public class EstadioService {
     }
 
 
-    public EstadioResponseDto atualizarEstadio(Long id, @Valid EstadioUpdateDto updateDto)   {
+    @Transactional
+    public EstadioResponseDto atualizarEstadio(Long id, @Valid EstadioUpdateDto updateDto) {
         Estadio estadio = repository.findById(id)
                 .orElseThrow(() -> new EstadioNaoEncontradoException(id));
 
@@ -64,5 +65,14 @@ public class EstadioService {
         estadio.setNomeEstadio(updateDto.getNomeEstadio());
         Estadio estadioAtualizado = repository.save(estadio);
         return new EstadioResponseDto(estadioAtualizado);
+    }
+
+    @Transactional
+    public void deletarEstadio(Long id) {
+        if (!repository.existsByEstadio(id)) {
+            throw new EstadioNaoEncontradoException(id);
+
+        }
+        repository.deleteById(id);
     }
 }

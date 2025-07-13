@@ -46,4 +46,11 @@ public class EstadioController {
         return ResponseEntity.ok(response);
 
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Valid> deletarEstadio(@PathVariable Long id) {
+        estadioService.deletarEstadio(id);
+        return ResponseEntity.noContent().build();
+
+    }
 }
