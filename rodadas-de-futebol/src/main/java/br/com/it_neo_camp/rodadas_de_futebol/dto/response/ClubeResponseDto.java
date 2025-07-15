@@ -25,8 +25,8 @@ public class ClubeResponseDto {
     }
 
     public ClubeResponseDto(Clube clubeSalvo) {
-        this.id = clubeSalvo.getClubeId();
-        this.nomeClube = clubeSalvo.getNomeClube();
+        this.id = clubeSalvo.getId();
+        this.nomeClube = clubeSalvo.getNome();
         this.estadoDoClube = clubeSalvo.getEstadoClube();
         this.siglaDoClube = clubeSalvo.getSiglaEstado();
         this.dataDeCriacao = clubeSalvo.getDataCriacao();

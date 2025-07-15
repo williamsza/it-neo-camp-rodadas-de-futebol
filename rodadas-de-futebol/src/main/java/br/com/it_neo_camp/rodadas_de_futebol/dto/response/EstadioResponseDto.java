@@ -12,8 +12,8 @@ public class EstadioResponseDto {
     }
 
     public EstadioResponseDto(Estadio estadioSalvo) {
-        this.id = estadioSalvo.getEstadio();
-        this.nome = estadioSalvo.getNomeEstadio();
+        this.id = estadioSalvo.getId();
+        this.nome = estadioSalvo.getNome();
     }
 
     public Long getId() {

@@ -24,7 +24,7 @@ public class ClubeService {
 
     @Transactional
     public ClubeResponseDto cadastraNovoClube(ClubeRequestDto request) {
-        if (repository.existsByNomeClube(request.getNomeClube())) {
+        if (repository.existsByNome(request.getNomeClube())) {
             throw new ClubeExistenteException(request.getNomeClube());
 
         }
@@ -34,7 +34,7 @@ public class ClubeService {
         }
 
         Clube novoClube = new Clube();
-        novoClube.setNomeClube(request.getNomeClube());
+        novoClube.setNome(request.getNomeClube());
         novoClube.setSiglaEstado(sigla.toUpperCase());
         novoClube.setDataCriacao(request.getDataCriacao());
 
@@ -128,12 +128,12 @@ public class ClubeService {
         Clube clube = repository.findById(id).filter(Clube::isAtivo)
                 .orElseThrow(() -> new ClubeNaoEncontradoException(id));
 
-        if (repository.existsByNomeClube(request.getNomeClube()) && !clube.getNomeClube().equals(request.getNomeClube())) {
+        if (repository.existsByNome(request.getNomeClube()) && !clube.getNome().equals(request.getNomeClube())) {
             throw new ClubeExistenteException(request.getNomeClube());
 
 
         }
-        clube.setNomeClube(request.getNomeClube());
+        clube.setNome(request.getNomeClube());
         clube.setSiglaEstado(request.getSiglaEstado());
         clube.setEstadoClube(request.getEstadoDoClube());
         clube.setDataCriacao(request.getDataCriacao());

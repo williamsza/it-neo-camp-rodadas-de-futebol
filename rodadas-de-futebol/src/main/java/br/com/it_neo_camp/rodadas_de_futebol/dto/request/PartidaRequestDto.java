@@ -4,16 +4,19 @@ import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PartidaRequestDto {
 
-
-    @NotNull(message = "A data e hora da partida são obrigatórias.")
-    @PastOrPresent(message = "A data e hora da partida não podem estar no futuro.")
-    @FutureOrPresent(message = "A data da partida não pode ser no passado.")
-    private LocalDateTime dataHora;
 
     @NotNull(message = "O ID do clube mandante é obrigatório.")
     private Long clubeMandanteId;
@@ -30,51 +33,10 @@ public class PartidaRequestDto {
     @Min(value = 0, message = "O placar do visitante não pode ser negativo.")
     private Integer placarVisitante;
 
-    public Long getClubeMandanteId() {
-        return clubeMandanteId;
-    }
+    @NotNull(message = "A data e hora da partida são obrigatórias.")
+    @PastOrPresent(message = "A data e hora da partida não podem estar no futuro.")
+    @FutureOrPresent(message = "A data da partida não pode ser no passado.")
+    private LocalDate dataHora;
 
-    public void setClubeMandanteId(Long clubeMandanteId) {
-        this.clubeMandanteId = clubeMandanteId;
-    }
 
-    public Long getClubeVisitanteId() {
-        return clubeVisitanteId;
-    }
-
-    public void setClubeVisitanteId(Long clubeVisitanteId) {
-        this.clubeVisitanteId = clubeVisitanteId;
-    }
-
-    public Long getEstadioId() {
-        return estadioId;
-    }
-
-    public void setEstadioId(Long estadioId) {
-        this.estadioId = estadioId;
-    }
-
-    public Integer getPlacarMandante() {
-        return placarMandante;
-    }
-
-    public void setPlacarMandante(Integer placarMandante) {
-        this.placarMandante = placarMandante;
-    }
-
-    public Integer getPlacarVisitante() {
-        return placarVisitante;
-    }
-
-    public void setPlacarVisitante(Integer placarVisitante) {
-        this.placarVisitante = placarVisitante;
-    }
-
-    public LocalDateTime getDataHora() {
-        return dataHora;
-    }
-
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
-    }
 }

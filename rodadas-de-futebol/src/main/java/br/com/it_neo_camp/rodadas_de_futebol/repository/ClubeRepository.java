@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClubeRepository extends JpaRepository<Clube, Long> {
-    boolean existsByNomeClube(String nomeClube);
+    boolean existsByNome(String nomeClube);
 
     @Modifying
-    @Query("UPDATE Clube c SET c.ativo = false WHERE c.clubeId = :id")
+    @Query("UPDATE Clube c SET c.ativo = false WHERE c.id = :id")
     void desativarPorId(@Param("id") Long id);
 
 }

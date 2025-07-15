@@ -6,9 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface EstadioRepository extends JpaRepository<Estadio, Long> {
-    boolean existsByNomeEstadioIgnoreCase(String nomeEstadio);
+    //boolean existsByNomeEstadioIgnoreCase(String nomeEstadio);
+
+    boolean existsByNome(String nome);
+
 
     Optional<Estadio> findById(Long id);
 
-    boolean existsByEstadio(Long id);
+//    boolean existsByEstadio(Long id);
+    boolean existsById(Long id);
 }
