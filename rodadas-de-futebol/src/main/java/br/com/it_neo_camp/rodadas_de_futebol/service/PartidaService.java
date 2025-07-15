@@ -34,12 +34,12 @@ public class PartidaService {
 
         }
         Clube clubeMandante = clubeRepository.findById(request.getClubeMandanteId())
-                .orElseThrow(() -> new RecursoNaoEncontradoException("Clube mandante nao encontrado. "));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Partida ", "Clube mandante nao encontrado. "));
         Clube clubeVisitante = clubeRepository.findById(request.getClubeVisitanteId())
-                .orElseThrow(() -> new RecursoNaoEncontradoException("Clube vistante nao encontrado. "));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Partida ", "Clube vistante nao encontrado. "));
 
         Estadio estadio = estadioRepository.findById(request.getEstadioId())
-                .orElseThrow(() -> new RecursoNaoEncontradoException("Estadio nao encontrado.  "));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Partida ", "Estadio nao encontrado.  "));
 
         if (!clubeMandante.isAtivo()) {
             throw new ConflitoDodosException("Clube mandante esta inativo. ");
@@ -62,5 +62,11 @@ public class PartidaService {
 
 
     }
+    @Transactional
+    public PartidaResponseDto pesquisarPartidaPorId(Long id) {
+        Partida partida = partidaRepository.findById(id)
+                .orElseThrow(()-> new RecursoNaoEncontradoException("Partida ","ID"+ id));
+        return new PartidaResponseDto(partida);
 
+    }
 }

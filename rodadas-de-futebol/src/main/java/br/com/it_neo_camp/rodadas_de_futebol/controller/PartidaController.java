@@ -7,10 +7,7 @@ import br.com.it_neo_camp.rodadas_de_futebol.service.PartidaService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/partidas")
@@ -27,4 +24,11 @@ public class PartidaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
     }
-}
+    @GetMapping("/{id}")
+    public ResponseEntity<PartidaResponseDto> pesquisarPartidaPorId(@PathVariable Long id){
+        PartidaResponseDto response = partidaService.pesquisarPartidaPorId(id);
+            return ResponseEntity.ok(response);
+
+        }
+    }
+

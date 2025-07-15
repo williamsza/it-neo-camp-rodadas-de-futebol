@@ -24,6 +24,26 @@ public class PartidaResponseDto {
     private Long estadioId;
     private LocalDate dataHora;
 
+    public PartidaResponseDto(Partida partida) {
+        if (partida == null) {
+            // Se for nulo, talvez lançar uma exceção ou retornar um DTO com campos nulos.
+            // Para "pesquisarPartidas", o caso de partida nula aqui não deveria ocorrer,
+            // pois o Stream já filtraria. Mas é bom ter uma verificação defensiva.
+            return; // Ou lançar new IllegalArgumentException("Partida não pode ser nula para mapeamento.");
+        }
+
+        this.id = partida.getId();
+        this.nomeMandante = partida.getClubeMandante().getNome();
+        this.nomeVisitante = partida.getClubeVisitante().getNome();
+        this.clubeMandanteId = partida.getClubeMandante().getId();
+        this.clubeVisistanteId = partida.getClubeVisitante().getId();
+        this.placarMandante = partida.getPlacarMandante();
+        this.placarVisitante = partida.getPlacarVisitante();
+        this.estadioNome = partida.getEstadio().getNome();
+        this.estadioId = partida.getEstadio().getId();
+        this.dataHora = partida.getDataHora();
+    }
+
     public static PartidaResponseDto fromEntity(Partida partidaSalva) {
         if (partidaSalva == null) return null;
 
