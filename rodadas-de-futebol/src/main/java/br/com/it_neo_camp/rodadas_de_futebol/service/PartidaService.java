@@ -18,6 +18,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PartidaService {
     private final PartidaRepository partidaRepository;
@@ -109,5 +111,11 @@ public class PartidaService {
         partida.setDataHora(request.getDataHora());
         Partida partidaAtualizada = partidaRepository.save(partida);
         return PartidaResponseDto.fromEntity(partidaAtualizada);
+    }
+    @Transactional
+    public List<PartidaResponseDto> pesquisarTodasPartidas() {
+        return partidaRepository.findAll().stream()
+                .map(PartidaResponseDto::fromEntity)
+                .toList();
     }
 }

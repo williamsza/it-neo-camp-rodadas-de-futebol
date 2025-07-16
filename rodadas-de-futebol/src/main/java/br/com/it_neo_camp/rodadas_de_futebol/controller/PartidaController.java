@@ -9,8 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/partidas")
+@RequestMapping("/")
 public class PartidaController {
     private final PartidaService partidaService;
 
@@ -36,6 +38,11 @@ public class PartidaController {
     public ResponseEntity<PartidaResponseDto> atualizarPartida(@PathVariable Long id, @Valid @RequestBody PartidaRequestDto request) throws ConflitoDodosException {
         PartidaResponseDto response = partidaService.atualizarPartida(id, request);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/partidas")
+    public ResponseEntity<List<PartidaResponseDto>> pesquisarTodasPartidas() {
+        return ResponseEntity.ok(partidaService.pesquisarTodasPartidas());
     }
 
 
