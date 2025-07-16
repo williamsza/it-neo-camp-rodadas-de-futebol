@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/partidas")
 public class PartidaController {
-   private final PartidaService partidaService;
+    private final PartidaService partidaService;
 
     public PartidaController(PartidaService partidaService) {
         this.partidaService = partidaService;
@@ -24,11 +24,19 @@ public class PartidaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<PartidaResponseDto> pesquisarPartidaPorId(@PathVariable Long id){
-        PartidaResponseDto response = partidaService.pesquisarPartidaPorId(id);
-            return ResponseEntity.ok(response);
 
-        }
+    @GetMapping("/{id}")
+    public ResponseEntity<PartidaResponseDto> pesquisarPartidaPorId(@PathVariable Long id) {
+        PartidaResponseDto response = partidaService.pesquisarPartidaPorId(id);
+        return ResponseEntity.ok(response);
+
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<PartidaResponseDto> atualizarPartida(@PathVariable Long id, @Valid @RequestBody PartidaRequestDto request) throws ConflitoDodosException {
+        PartidaResponseDto response = partidaService.atualizarPartida(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+
+}

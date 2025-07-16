@@ -13,6 +13,9 @@ import br.com.it_neo_camp.rodadas_de_futebol.repository.ClubeRepository;
 import br.com.it_neo_camp.rodadas_de_futebol.repository.EstadioRepository;
 import br.com.it_neo_camp.rodadas_de_futebol.repository.PartidaRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -68,5 +71,43 @@ public class PartidaService {
                 .orElseThrow(()-> new RecursoNaoEncontradoException("Partida ","ID"+ id));
         return new PartidaResponseDto(partida);
 
+    }
+    @Transactional
+    public Page<PartidaResponseDto> listarPartidasPaginado(Pageable pageable) {
+        return partidaRepository.findAll(pageable).map(PartidaResponseDto::fromEntity);
+    }
+
+    @Transactional
+    public PartidaResponseDto atualizarPartida(Long id, @Valid PartidaRequestDto request) throws ConflitoDodosException {
+        Partida partida = partidaRepository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Partida ", "ID" + id));
+
+        if (request.getClubeMandanteId().equals(request.getClubeVisitanteId())) {
+            throw new DadosInvalidosException("Os clubes mandante e visitante nao podem ser iguais!");
+        }
+        Clube clubeMandante = clubeRepository.findById(request.getClubeMandanteId())
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Partida ", "Clube mandante nao encontrado."));
+        Clube clubeVisitante = clubeRepository.findById(request.getClubeVisitanteId())
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Partida ", "Clube visitante nao encontrado."));
+        Estadio estadio = estadioRepository.findById(request.getEstadioId())
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Partida ", "Estadio nao encontrado."));
+        if (!clubeMandante.isAtivo()) {
+            throw new ConflitoDodosException("Clube mandante esta inativo.");
+        }
+        if (!clubeVisitante.isAtivo()) {
+            throw new ConflitoDodosException("Clube visitante esta inativo.");
+        }
+        if (request.getDataHora().isBefore(clubeMandante.getDataCriacao()) ||
+                request.getDataHora().isBefore(clubeVisitante.getDataCriacao())) {
+            throw new ConflitoDodosException("A data da partida não pode ser anterior à data de criação de um dos clubes envolvidos!");
+        }
+        partida.setClubeMandante(clubeMandante);
+        partida.setClubeVisitante(clubeVisitante);
+        partida.setPlacarMandante(request.getPlacarMandante());
+        partida.setPlacarVisitante(request.getPlacarVisitante());
+        partida.setEstadio(estadio);
+        partida.setDataHora(request.getDataHora());
+        Partida partidaAtualizada = partidaRepository.save(partida);
+        return PartidaResponseDto.fromEntity(partidaAtualizada);
     }
 }
