@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PartidaService {
@@ -67,13 +68,15 @@ public class PartidaService {
 
 
     }
+
     @Transactional
     public PartidaResponseDto pesquisarPartidaPorId(Long id) {
         Partida partida = partidaRepository.findById(id)
-                .orElseThrow(()-> new RecursoNaoEncontradoException("Partida ","ID"+ id));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Partida ", "ID" + id));
         return new PartidaResponseDto(partida);
 
     }
+
     @Transactional
     public Page<PartidaResponseDto> listarPartidasPaginado(Pageable pageable) {
         return partidaRepository.findAll(pageable).map(PartidaResponseDto::fromEntity);
@@ -112,10 +115,20 @@ public class PartidaService {
         Partida partidaAtualizada = partidaRepository.save(partida);
         return PartidaResponseDto.fromEntity(partidaAtualizada);
     }
+
     @Transactional
     public List<PartidaResponseDto> pesquisarTodasPartidas() {
         return partidaRepository.findAll().stream()
                 .map(PartidaResponseDto::fromEntity)
                 .toList();
+    }
+
+    public boolean deletarPartida(Long id) {
+        Optional<Partida> partida = partidaRepository.findById(id);
+        if (partida.isPresent()) {
+            partidaRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

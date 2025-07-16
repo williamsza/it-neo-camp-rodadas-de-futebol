@@ -43,7 +43,9 @@ public class Partida {
         this.placarVisitante = placarVisitante;
         this.estadio = estadio;
         this.dataHora = dataHora;
-        this.statusPartida = StatusPartida.AGENDADA; // Ou o status inicial padrão
+        this.statusPartida = StatusPartida.AGENDADA; 
     }
+
+
 }
 

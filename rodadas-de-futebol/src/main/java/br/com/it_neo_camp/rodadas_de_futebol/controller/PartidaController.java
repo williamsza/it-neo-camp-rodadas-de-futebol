@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/partidas")
 public class PartidaController {
     private final PartidaService partidaService;
 
@@ -40,9 +40,15 @@ public class PartidaController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/partidas")
+    @GetMapping
     public ResponseEntity<List<PartidaResponseDto>> pesquisarTodasPartidas() {
         return ResponseEntity.ok(partidaService.pesquisarTodasPartidas());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarPartida(@PathVariable Long id) {
+        partidaService.deletarPartida(id);
+        return ResponseEntity.noContent().build();
     }
 
 
