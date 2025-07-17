@@ -12,7 +12,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler({
             DadosInvalidosException.class,
-            ConflitoDodosException.class,
+            ConflitoDadosException.class,
             RecursoNaoEncontradoException.class,
             ClubeExistenteException.class,
             ClubeNaoEncontradoException.class,
