@@ -3,8 +3,9 @@ package br.com.it_neo_camp.rodadas_de_futebol.service;
 
 import br.com.it_neo_camp.rodadas_de_futebol.dto.request.PartidaRequestDto;
 import br.com.it_neo_camp.rodadas_de_futebol.dto.response.PartidaResponseDto;
-import br.com.it_neo_camp.rodadas_de_futebol.exception.ConflitoDodosException;
+import br.com.it_neo_camp.rodadas_de_futebol.exception.ConflitoDadosException;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.DadosInvalidosException;
+import br.com.it_neo_camp.rodadas_de_futebol.exception.PlacarInvalidoException;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.RecursoNaoEncontradoException;
 import br.com.it_neo_camp.rodadas_de_futebol.model.Clube;
 import br.com.it_neo_camp.rodadas_de_futebol.model.Estadio;
@@ -34,7 +35,7 @@ public class PartidaService {
     }
 
     @Transactional
-    public PartidaResponseDto cadastrarPartida(PartidaRequestDto request) throws ConflitoDodosException {
+    public PartidaResponseDto cadastrarPartida(PartidaRequestDto request) throws ConflitoDadosException {
         if (request.getClubeMandanteId().equals(request.getClubeVisitanteId())) {
             throw new DadosInvalidosException("Os clubees mandante e visitante nao podem ser iguais! ");
 
@@ -48,15 +49,15 @@ public class PartidaService {
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Partida ", "Estadio nao encontrado.  "));
 
         if (!clubeMandante.isAtivo()) {
-            throw new ConflitoDodosException("Clube mandante esta inativo. ");
+            throw new ConflitoDadosException("Clube mandante esta inativo. ");
 
         }
         if (!clubeVisitante.isAtivo()) {
-            throw new ConflitoDodosException("Clube visitante esta inativo. ");
+            throw new ConflitoDadosException("Clube visitante esta inativo. ");
         }
         if (request.getDataHora().isBefore((clubeMandante.getDataCriacao())) ||
                 request.getDataHora().isBefore((clubeVisitante.getDataCriacao()))) {
-            throw new ConflitoDodosException("A data da partida náo pode ser anterior a data de criacao de um dos clubes envolvidos! ");
+            throw new ConflitoDadosException("A data da partida náo pode ser anterior a data de criacao de um dos clubes envolvidos! ");
 
         }
 
@@ -83,7 +84,7 @@ public class PartidaService {
     }
 
     @Transactional
-    public PartidaResponseDto atualizarPartida(Long id, @Valid PartidaRequestDto request) throws ConflitoDodosException {
+    public PartidaResponseDto atualizarPartida(Long id, @Valid PartidaRequestDto request) throws ConflitoDadosException {
         Partida partida = partidaRepository.findById(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Partida ", "ID" + id));
 
@@ -97,14 +98,14 @@ public class PartidaService {
         Estadio estadio = estadioRepository.findById(request.getEstadioId())
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Partida ", "Estadio nao encontrado."));
         if (!clubeMandante.isAtivo()) {
-            throw new ConflitoDodosException("Clube mandante esta inativo.");
+            throw new ConflitoDadosException("Clube mandante esta inativo.");
         }
         if (!clubeVisitante.isAtivo()) {
-            throw new ConflitoDodosException("Clube visitante esta inativo.");
+            throw new ConflitoDadosException("Clube visitante esta inativo.");
         }
         if (request.getDataHora().isBefore(clubeMandante.getDataCriacao()) ||
                 request.getDataHora().isBefore(clubeVisitante.getDataCriacao())) {
-            throw new ConflitoDodosException("A data da partida não pode ser anterior à data de criação de um dos clubes envolvidos!");
+            throw new ConflitoDadosException("A data da partida não pode ser anterior à data de criação de um dos clubes envolvidos!");
         }
         partida.setClubeMandante(clubeMandante);
         partida.setClubeVisitante(clubeVisitante);
@@ -131,4 +132,10 @@ public class PartidaService {
         }
         return false;
     }
+    private void validarPlacarNaoNegativo(PartidaRequestDto request) {
+        if (request.getPlacarMandante() < 0 || request.getPlacarVisitante() < 0) {
+            throw new PlacarInvalidoException("Placar não pode ser negativo.");
+        }
+    }
+
 }
