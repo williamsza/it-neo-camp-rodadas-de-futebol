@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -22,14 +22,12 @@ public class PartidaResponseDto {
     private Integer placarVisitante;
     private String estadioNome;
     private Long estadioId;
-    private LocalDate dataHora;
+    private LocalDateTime dataHora;
 
     public PartidaResponseDto(Partida partida) {
         if (partida == null) {
-            // Se for nulo, talvez lançar uma exceção ou retornar um DTO com campos nulos.
-            // Para "pesquisarPartidas", o caso de partida nula aqui não deveria ocorrer,
-            // pois o Stream já filtraria. Mas é bom ter uma verificação defensiva.
-            return; // Ou lançar new IllegalArgumentException("Partida não pode ser nula para mapeamento.");
+
+            return;
         }
 
         this.id = partida.getId();

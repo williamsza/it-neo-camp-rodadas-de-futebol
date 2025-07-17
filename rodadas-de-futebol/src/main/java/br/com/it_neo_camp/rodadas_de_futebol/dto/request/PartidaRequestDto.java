@@ -1,6 +1,5 @@
 package br.com.it_neo_camp.rodadas_de_futebol.dto.request;
 
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -9,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -35,8 +34,8 @@ public class PartidaRequestDto {
 
     @NotNull(message = "A data e hora da partida são obrigatórias.")
     @PastOrPresent(message = "A data e hora da partida não podem estar no futuro.")
-    @FutureOrPresent(message = "A data da partida não pode ser no passado.")
-    private LocalDate dataHora;
+    //@Future(message = "A data da partida não pode ser no passado.")
+    private LocalDateTime dataHora;
 
 
 }

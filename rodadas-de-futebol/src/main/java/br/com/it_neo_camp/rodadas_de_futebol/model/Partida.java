@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -30,13 +30,13 @@ public class Partida {
     @JoinColumn(name = "estadio_id", nullable = false)
     private Estadio estadio;
     @Column(nullable = false)
-    private LocalDate dataHora;
+    private LocalDateTime dataHora;
     @Enumerated(EnumType.STRING)
     @NotNull
     private StatusPartida statusPartida;
 
     public Partida(Clube clubeMandante, Clube clubeVisitante, Integer placarMandante,
-                   Integer placarVisitante, Estadio estadio, LocalDate dataHora) {
+                   Integer placarVisitante, Estadio estadio, LocalDateTime dataHora) {
         this.clubeMandante = clubeMandante;
         this.clubeVisitante = clubeVisitante;
         this.placarMandante = placarMandante;
