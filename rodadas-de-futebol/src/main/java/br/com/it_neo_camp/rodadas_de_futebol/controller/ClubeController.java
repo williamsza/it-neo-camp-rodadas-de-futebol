@@ -2,9 +2,6 @@ package br.com.it_neo_camp.rodadas_de_futebol.controller;
 
 import br.com.it_neo_camp.rodadas_de_futebol.dto.request.ClubeRequestDto;
 import br.com.it_neo_camp.rodadas_de_futebol.dto.response.ClubeResponseDto;
-import br.com.it_neo_camp.rodadas_de_futebol.exception.ClubeExistenteException;
-import br.com.it_neo_camp.rodadas_de_futebol.exception.ClubeNaoEncontradoException;
-import br.com.it_neo_camp.rodadas_de_futebol.exception.OperacaoClubeInvalidaException;
 import br.com.it_neo_camp.rodadas_de_futebol.service.ClubeService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -24,15 +21,11 @@ public class ClubeController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> cadastrarNovoClube(@Valid @RequestBody ClubeRequestDto request) {
-
-        try {
-            ClubeResponseDto response = clubeService.cadastraNovoClube(request);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (ClubeExistenteException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<ClubeResponseDto> cadastrarNovoClube(@Valid @RequestBody ClubeRequestDto request) {
+        ClubeResponseDto response = clubeService.cadastraNovoClube(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
 
     @GetMapping
     public ResponseEntity<List<ClubeResponseDto>> listarTodosClubes() {
@@ -40,45 +33,27 @@ public class ClubeController {
         return ResponseEntity.ok(clubes);
     }
 
+
     @GetMapping("/{id}")
-    public ResponseEntity<Object> buscarClubePorId(@PathVariable Long id) {
-        try {
-            ClubeResponseDto response = clubeService.buscarClubePorId(id);
-            return ResponseEntity.ok(response);
-
-        } catch (ClubeNaoEncontradoException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-
-        }
-
+    public ResponseEntity<ClubeResponseDto> buscarClubePorId(@PathVariable Long id) {
+        ClubeResponseDto response = clubeService.buscarClubePorId(id);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> atualizarClube(@PathVariable Long id, @Valid @RequestBody ClubeRequestDto request) {
-        try {
-            ClubeResponseDto response = clubeService.atualizarClube(id, request);
-            return ResponseEntity.ok(response);
-        } catch (ClubeNaoEncontradoException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (ClubeExistenteException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-
-        }
-
-
+    public ResponseEntity<ClubeResponseDto> atualizarClube(@PathVariable Long id, @Valid @RequestBody ClubeRequestDto request) {
+        ClubeResponseDto response = clubeService.atualizarClube(id, request);
+        return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deletarClube(@PathVariable Long id) {
-        try {
-            clubeService.deletarClube(id);
-            return ResponseEntity.noContent().build();
-        } catch (ClubeNaoEncontradoException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (OperacaoClubeInvalidaException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @DeleteMapping("inativar/{id}")
+    public ResponseEntity<Void> inativarClube(@PathVariable Long id) {
+        clubeService.inativarClube(id);
+        return ResponseEntity.noContent().build();
     }
 
 
 }
+
+
+

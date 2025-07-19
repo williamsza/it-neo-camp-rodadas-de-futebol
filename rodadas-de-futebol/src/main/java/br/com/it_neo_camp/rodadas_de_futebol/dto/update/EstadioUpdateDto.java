@@ -1,4 +1,4 @@
-package br.com.it_neo_camp.rodadas_de_futebol.dto.request;
+package br.com.it_neo_camp.rodadas_de_futebol.dto.update;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

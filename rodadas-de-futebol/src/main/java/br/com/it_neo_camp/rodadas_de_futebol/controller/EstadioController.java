@@ -2,12 +2,11 @@ package br.com.it_neo_camp.rodadas_de_futebol.controller;
 
 
 import br.com.it_neo_camp.rodadas_de_futebol.dto.request.EstadioRequestDto;
-import br.com.it_neo_camp.rodadas_de_futebol.dto.request.EstadioUpdateDto;
+import br.com.it_neo_camp.rodadas_de_futebol.dto.update.EstadioUpdateDto;
 import br.com.it_neo_camp.rodadas_de_futebol.dto.response.EstadioResponseDto;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.EstadioExistenteException;
 import br.com.it_neo_camp.rodadas_de_futebol.service.EstadioService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +16,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/estadios")
 public class EstadioController {
-    @Autowired
+
     private EstadioService estadioService;
 
+    public EstadioController(EstadioService estadioService) {
+        this.estadioService = estadioService;
+    }
 
     @PostMapping
     public ResponseEntity<EstadioResponseDto> cadastrarEstadio(@Valid @RequestBody EstadioRequestDto request) throws EstadioExistenteException {

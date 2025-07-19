@@ -1,7 +1,7 @@
 package br.com.it_neo_camp.rodadas_de_futebol.service;
 
 import br.com.it_neo_camp.rodadas_de_futebol.dto.request.EstadioRequestDto;
-import br.com.it_neo_camp.rodadas_de_futebol.dto.request.EstadioUpdateDto;
+import br.com.it_neo_camp.rodadas_de_futebol.dto.update.EstadioUpdateDto;
 import br.com.it_neo_camp.rodadas_de_futebol.dto.response.EstadioResponseDto;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.EstadioExistenteException;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.EstadioNaoEncontradoException;
@@ -9,7 +9,6 @@ import br.com.it_neo_camp.rodadas_de_futebol.model.Estadio;
 import br.com.it_neo_camp.rodadas_de_futebol.repository.EstadioRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,12 +25,12 @@ public class EstadioService {
     @Transactional
     public EstadioResponseDto cadastrarEstadio(EstadioRequestDto request) throws EstadioExistenteException {
 
-        if (repository.existsByNomeEstadioIgnoreCase(request.getNomeEstadio())) {
+        if (repository.existsByNome(request.getNomeEstadio())) {
             throw new EstadioExistenteException(request.getNomeEstadio());
 
         }
         Estadio novoEstadio = new Estadio();
-        novoEstadio.setNomeEstadio(request.getNomeEstadio());
+        novoEstadio.setNome(request.getNomeEstadio());
 
         Estadio estadioSalvo = repository.save(novoEstadio);
         return new EstadioResponseDto(estadioSalvo);
@@ -57,19 +56,19 @@ public class EstadioService {
         Estadio estadio = repository.findById(id)
                 .orElseThrow(() -> new EstadioNaoEncontradoException(id));
 
-        if (repository.existsByNomeEstadioIgnoreCase(updateDto.getNomeEstadio()) &&
-                !estadio.getNomeEstadio().equalsIgnoreCase(updateDto.getNomeEstadio())) {
+        if (repository.existsByNome(updateDto.getNomeEstadio()) &&
+                !estadio.getNome().equalsIgnoreCase(updateDto.getNomeEstadio())) {
             throw new EstadioExistenteException(updateDto.getNomeEstadio());
 
         }
-        estadio.setNomeEstadio(updateDto.getNomeEstadio());
+        estadio.setNome(updateDto.getNomeEstadio());
         Estadio estadioAtualizado = repository.save(estadio);
         return new EstadioResponseDto(estadioAtualizado);
     }
 
     @Transactional
     public void deletarEstadio(Long id) {
-        if (!repository.existsByEstadio(id)) {
+        if (!repository.existsById(id)) {
             throw new EstadioNaoEncontradoException(id);
 
         }
