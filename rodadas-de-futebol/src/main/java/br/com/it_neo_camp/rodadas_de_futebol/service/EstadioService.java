@@ -1,7 +1,7 @@
 package br.com.it_neo_camp.rodadas_de_futebol.service;
 
 import br.com.it_neo_camp.rodadas_de_futebol.dto.request.EstadioRequestDto;
-import br.com.it_neo_camp.rodadas_de_futebol.dto.request.EstadioUpdateDto;
+import br.com.it_neo_camp.rodadas_de_futebol.dto.update.EstadioUpdateDto;
 import br.com.it_neo_camp.rodadas_de_futebol.dto.response.EstadioResponseDto;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.EstadioExistenteException;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.EstadioNaoEncontradoException;

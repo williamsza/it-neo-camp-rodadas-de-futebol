@@ -3,7 +3,13 @@ package br.com.it_neo_camp.rodadas_de_futebol.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "estadios")
 public class Estadio {
@@ -16,19 +22,5 @@ public class Estadio {
     @Column(unique = true, nullable = false)
     private String nome;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long estadio) {
-        this.id = estadio;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nomeEstadio) {
-        this.nome = nomeEstadio;
-    }
 }
