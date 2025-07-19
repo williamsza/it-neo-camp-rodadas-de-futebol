@@ -11,6 +11,9 @@ import org.springframework.stereotype.Repository;
 public interface ClubeRepository extends JpaRepository<Clube, Long> {
     boolean existsByNome(String nomeClube);
 
+    @Override
+    boolean existsById(Long iq);
+
     @Modifying
     @Query("UPDATE Clube c SET c.ativo = false WHERE c.id = :id")
     void desativarPorId(@Param("id") Long id);

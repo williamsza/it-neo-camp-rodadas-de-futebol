@@ -2,42 +2,35 @@ package br.com.it_neo_camp.rodadas_de_futebol.dto.response;
 
 import br.com.it_neo_camp.rodadas_de_futebol.model.Clube;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ClubeResponseDto {
 
     private Long id;
     private String nomeClube;
-    private String estadoDoClube;
-    private String siglaDoClube;
-    private LocalDate dataDeCriacao;
-    private Boolean statusClube;
-    private Clube clubeSalvo;
+    private String estadoClube;
+    private String siglaEstado;
+    private LocalDateTime dataCriacao;
+    private Boolean ativo;
 
-    public ClubeResponseDto(Long id, String nomeClube, String estadoDoClube, String siglaDoClube, LocalDate dataDeCriacao, Boolean statusClube,Clube clubeSalvo) {
+    public ClubeResponseDto(Long id, String nomeClube, String estadoDoClube, String siglaDoClube, String siglaEstado, LocalDateTime dataDeCriacao, Boolean statusClube, Clube clubeSalvo) {
         this.id = id;
         this.nomeClube = nomeClube;
-        this.estadoDoClube = estadoDoClube;
-        this.siglaDoClube = siglaDoClube;
-        this.dataDeCriacao = dataDeCriacao;
-        this.statusClube = statusClube;
+        this.estadoClube = estadoDoClube;
+        this.dataCriacao = dataDeCriacao;
+        this.siglaEstado = siglaEstado;
+        this.ativo = ativo;
 
     }
 
     public ClubeResponseDto(Clube clubeSalvo) {
         this.id = clubeSalvo.getId();
         this.nomeClube = clubeSalvo.getNome();
-        this.estadoDoClube = clubeSalvo.getEstadoClube();
-        this.siglaDoClube = clubeSalvo.getSiglaEstado();
-        this.dataDeCriacao = clubeSalvo.getDataCriacao();
-        this.statusClube = clubeSalvo.isStatusClube();
-    }
-    public Clube getClubeSalvo() {
-        return clubeSalvo;
-    }
-
-    public void setClubeSalvo(Clube clubeSalvo) {
-        this.clubeSalvo = clubeSalvo;
+        this.estadoClube = clubeSalvo.getEstadoClube();
+        this.dataCriacao = clubeSalvo.getDataCriacao();
+        this.siglaEstado = clubeSalvo.getSiglaEstado();
+        //this.statusClube = clubeSalvo.isStatusClube();
+        this.ativo = clubeSalvo.isAtivo();
     }
 
     public Long getId() {
@@ -56,35 +49,37 @@ public class ClubeResponseDto {
         this.nomeClube = nomeClube;
     }
 
-    public String getEstadoDoClube() {
-        return estadoDoClube;
+
+    public String getEstadoClube() {
+        return estadoClube;
     }
 
-    public void setEstadoDoClube(String estadoDoClube) {
-        this.estadoDoClube = estadoDoClube;
+    public void setEstadoClube(String estadoClube) {
+        this.estadoClube = estadoClube;
     }
 
-    public String getSiglaDoClube() {
-        return siglaDoClube;
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
     }
 
-    public void setSiglaDoClube(String siglaDoClube) {
-        this.siglaDoClube = siglaDoClube;
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
-    public LocalDate getDataDeCriacao() {
-        return dataDeCriacao;
+
+    public Boolean getAtivo() {
+        return ativo;
     }
 
-    public void setDataDeCriacao(LocalDate dataDeCriacao) {
-        this.dataDeCriacao = dataDeCriacao;
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
-    public Boolean getStatusClube() {
-        return statusClube;
+    public String getSiglaEstado() {
+        return siglaEstado;
     }
 
-    public void setStatusClube(Boolean statusClube) {
-        this.statusClube = statusClube;
+    public void setSiglaEstado(String siglaEstado) {
+        this.siglaEstado = siglaEstado;
     }
 }
