@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PartidaRequestDto {
 
-
     @NotNull(message = "O ID do clube mandante é obrigatório.")
     private Long clubeMandanteId;
 
@@ -36,6 +35,5 @@ public class PartidaRequestDto {
     @PastOrPresent(message = "A data e hora da partida não podem estar no futuro.")
     //@Future(message = "A data da partida não pode ser no passado.")
     private LocalDateTime dataHora;
-
 
 }

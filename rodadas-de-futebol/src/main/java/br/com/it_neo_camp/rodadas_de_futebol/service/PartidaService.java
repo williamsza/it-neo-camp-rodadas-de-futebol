@@ -55,8 +55,8 @@ public class PartidaService {
         if (!clubeVisitante.isAtivo()) {
             throw new ConflitoDadosException("Clube visitante esta inativo. ");
         }
-        if (request.getDataHora().isBefore((clubeMandante.getDataCriacao()).atStartOfDay()) ||
-                request.getDataHora().isBefore((clubeVisitante.getDataCriacao()).atStartOfDay())) {
+        if (request.getDataHora().isBefore((clubeMandante.getDataCriacao())) ||
+                request.getDataHora().isBefore((clubeVisitante.getDataCriacao()))) {
             throw new ConflitoDadosException("A data da partida náo pode ser anterior a data de criacao de um dos clubes envolvidos! ");
 
         }
@@ -103,8 +103,8 @@ public class PartidaService {
         if (!clubeVisitante.isAtivo()) {
             throw new ConflitoDadosException("Clube visitante esta inativo.");
         }
-        if (request.getDataHora().isBefore(clubeMandante.getDataCriacao().atStartOfDay()) ||
-                request.getDataHora().isBefore(clubeVisitante.getDataCriacao().atStartOfDay())) {
+        if (request.getDataHora().isBefore(clubeMandante.getDataCriacao()) ||
+                request.getDataHora().isBefore(clubeVisitante.getDataCriacao())) {
             throw new ConflitoDadosException("A data da partida não pode ser anterior à data de criação de um dos clubes envolvidos!");
         }
         partida.setClubeMandante(clubeMandante);
@@ -124,6 +124,7 @@ public class PartidaService {
                 .toList();
     }
 
+    @Transactional
     public boolean deletarPartida(Long id) {
         Optional<Partida> partida = partidaRepository.findById(id);
         if (partida.isPresent()) {
