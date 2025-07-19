@@ -8,7 +8,7 @@ public class ClubeResponseDto {
 
     private Long id;
     private String nomeClube;
-    private String estadoDoClube;
+    //private String estadoDoClube;
     private String siglaDoClube;
     private LocalDate dataDeCriacao;
     private Boolean statusClube;
@@ -17,7 +17,7 @@ public class ClubeResponseDto {
     public ClubeResponseDto(Long id, String nomeClube, String estadoDoClube, String siglaDoClube, LocalDate dataDeCriacao, Boolean statusClube,Clube clubeSalvo) {
         this.id = id;
         this.nomeClube = nomeClube;
-        this.estadoDoClube = estadoDoClube;
+        //this.estadoDoClube = estadoDoClube;
         this.siglaDoClube = siglaDoClube;
         this.dataDeCriacao = dataDeCriacao;
         this.statusClube = statusClube;
@@ -27,7 +27,7 @@ public class ClubeResponseDto {
     public ClubeResponseDto(Clube clubeSalvo) {
         this.id = clubeSalvo.getClubeId();
         this.nomeClube = clubeSalvo.getNomeClube();
-        this.estadoDoClube = clubeSalvo.getEstadoClube();
+       // this.estadoDoClube = clubeSalvo.getEstadoClube();
         this.siglaDoClube = clubeSalvo.getSiglaEstado();
         this.dataDeCriacao = clubeSalvo.getDataCriacao();
         this.statusClube = clubeSalvo.isStatusClube();
@@ -56,13 +56,14 @@ public class ClubeResponseDto {
         this.nomeClube = nomeClube;
     }
 
-    public String getEstadoDoClube() {
-        return estadoDoClube;
-    }
+    //Sera REMOVIDO
+//    public String getEstadoDoClube() {
+//        return estadoDoClube;
+//    }
 
-    public void setEstadoDoClube(String estadoDoClube) {
-        this.estadoDoClube = estadoDoClube;
-    }
+//    public void setEstadoDoClube(String estadoDoClube) {
+//        this.estadoDoClube = estadoDoClube;
+//    }
 
     public String getSiglaDoClube() {
         return siglaDoClube;

@@ -135,7 +135,7 @@ public class ClubeService {
         }
         clube.setNomeClube(request.getNomeClube());
         clube.setSiglaEstado(request.getSiglaEstado());
-        clube.setEstadoClube(request.getEstadoDoClube());
+        //clube.setEstadoClube(request.getEstadoDoClube());
         clube.setDataCriacao(request.getDataCriacao());
         clube.setStatusClube(request.getStatusClube());
 

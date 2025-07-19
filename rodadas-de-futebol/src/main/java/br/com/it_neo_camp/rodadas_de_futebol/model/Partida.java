@@ -10,6 +10,11 @@ public class Partida {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long partidaId;
+
+    @NotNull(message = "A data e hora da partida são obrigatórias.")
+    @Column(nullable = false)
+    private LocalDateTime dataHora;
+
     @ManyToOne
     @JoinColumn(name = "clube_mandante_id", nullable = false)
     private Clube clubeMandante;
@@ -17,26 +22,31 @@ public class Partida {
     @ManyToOne
     @JoinColumn(name = "clube_visitante_id", nullable = false)
     private Clube clubeVisitante;
+
     @ManyToOne
     @JoinColumn(name = "estadio_id", nullable = false)
     private Estadio estadio;
+
+    @NotNull(message = "Os gols do mandante são obrigatórios.")
+    @Column(nullable = false)
     private Integer golsMandante;
-    private Integer placarVisitante;
-    private LocalDateTime dataHora;
+
+    private Integer golsVisitante;
     @Enumerated(EnumType.STRING)
-    @NotNull
-    private StatosPartida statosPartida;
+    @NotNull(message = "O status da partida é obrigatório.")
+    @Column(nullable = false)
+    private StatusPartida statosPartida;
 
     public Partida() {
     }
 
-    public Partida(long partidaId, Clube clubeMandante, Clube clubeVisitante, Estadio estadio, Integer golsMandante, Integer placarVisitante, LocalDateTime dataHora, StatosPartida statosPartida) {
+    public Partida(long partidaId, Clube clubeMandante, Clube clubeVisitante, Estadio estadio, Integer golsMandante, Integer placarVisitante, LocalDateTime dataHora, StatusPartida statosPartida) {
         this.partidaId = partidaId;
         this.clubeMandante = clubeMandante;
         this.clubeVisitante = clubeVisitante;
         this.estadio = estadio;
         this.golsMandante = golsMandante;
-        this.placarVisitante = placarVisitante;
+        this.golsVisitante = placarVisitante;
         this.dataHora = dataHora;
         this.statosPartida = statosPartida;
     }
@@ -45,8 +55,16 @@ public class Partida {
         return partidaId;
     }
 
-    public void setPartidaId(long partidaId) {
+    public void setPartidaId(LocalDateTime partidaId) {
         this.partidaId = partidaId;
+    }
+
+    public LocalDateTime getDataHora() {
+        return dataHora;
+    }
+
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
     }
 
     public Clube getClubeMandante() {
@@ -81,27 +99,19 @@ public class Partida {
         this.golsMandante = golsMandante;
     }
 
-    public Integer getPlacarVisitante() {
-        return placarVisitante;
+    public Integer getGolsVisitante() {
+        return golsVisitante;
     }
 
-    public void setPlacarVisitante(Integer placarVisitante) {
-        this.placarVisitante = placarVisitante;
+    public void setGolsVisitante(Integer golsVisitante) {
+        this.golsVisitante = golsVisitante;
     }
 
-    public LocalDateTime getDataHora() {
-        return dataHora;
-    }
-
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
-    }
-
-    public StatosPartida getStatosPartida() {
+    public StatusPartida getStatusPartida() {
         return statosPartida;
     }
 
-    public void setStatosPartida(StatosPartida statosPartida) {
+    public void setStatosPartida(StatusPartida statosPartida) {
         this.statosPartida = statosPartida;
     }
 }

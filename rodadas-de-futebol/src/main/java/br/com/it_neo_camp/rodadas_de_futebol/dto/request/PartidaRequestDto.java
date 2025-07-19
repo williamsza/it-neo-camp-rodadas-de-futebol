@@ -13,7 +13,7 @@ public class PartidaRequestDto {
     @NotNull(message = "A data e hora da partida são obrigatórias.")
     @PastOrPresent(message = "A data e hora da partida não podem estar no futuro.")
     @FutureOrPresent(message = "A data da partida não pode ser no passado.")
-    private LocalDateTime dataHora;
+    private LocalDateTime dataDaPartida;
 
     @NotNull(message = "O ID do clube mandante é obrigatório.")
     private Long clubeMandanteId;
@@ -29,6 +29,8 @@ public class PartidaRequestDto {
     @NotNull(message = "O placar do visitante é obrigatório.")
     @Min(value = 0, message = "O placar do visitante não pode ser negativo.")
     private Integer placarVisitante;
+
+    private String StatusPartida;
 
     public Long getClubeMandanteId() {
         return clubeMandanteId;
@@ -70,11 +72,19 @@ public class PartidaRequestDto {
         this.placarVisitante = placarVisitante;
     }
 
-    public LocalDateTime getDataHora() {
-        return dataHora;
+    public LocalDateTime getDataDaPartida() {
+        return dataDaPartida;
     }
 
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
+    public void setDataDaPartida(LocalDateTime dataDaPartida) {
+        this.dataDaPartida = dataDaPartida;
+    }
+
+    public String getStatusPartida() {
+        return StatusPartida;
+    }
+
+    public void setStatusPartida(String statusPartida) {
+        StatusPartida = statusPartida;
     }
 }

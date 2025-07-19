@@ -1,18 +1,22 @@
 package br.com.it_neo_camp.rodadas_de_futebol.dto.response;
 
+import br.com.it_neo_camp.rodadas_de_futebol.model.Partida;
+import br.com.it_neo_camp.rodadas_de_futebol.model.StatusPartida;
+
 import java.time.LocalDateTime;
 
 public class PartidaResponseDto {
     private Long id;
     private LocalDateTime dataPartida;
-    private Long clubeMandanteId;
     private String nomeMandante;
-    private Long clubeVisistanteId;
     private String nomeVisitante;
-    private Long estadioId;
-    private String estadioNome;
+    private Long clubeMandanteId;
+    private Long clubeVisistanteId;
     private Integer placarMandante;
     private Integer placarVisitante;
+    private Long estadioId;
+    private String estadioNome;
+    private StatusPartida statusPartida;
 
     public PartidaResponseDto(Long id, LocalDateTime dataPartida, Long clubeMandanteId, String nomeMandante, Long clubeVisistanteId, String nomeVisitante, Long estadioId, String estadioNome, Integer placarMandante, Integer placarVisitante) {
         this.id = id;
@@ -25,6 +29,7 @@ public class PartidaResponseDto {
         this.estadioNome = estadioNome;
         this.placarMandante = placarMandante;
         this.placarVisitante = placarVisitante;
+        this.statusPartida = statusPartida;
     }
 
     public Long getId() {
@@ -35,12 +40,12 @@ public class PartidaResponseDto {
         this.id = id;
     }
 
-    public Long getClubeMandanteId() {
-        return clubeMandanteId;
+    public LocalDateTime getDataPartida() {
+        return dataPartida;
     }
 
-    public void setClubeMandanteId(Long clubeMandanteId) {
-        this.clubeMandanteId = clubeMandanteId;
+    public void setDataPartida(LocalDateTime dataPartida) {
+        this.dataPartida = dataPartida;
     }
 
     public String getNomeMandante() {
@@ -51,14 +56,6 @@ public class PartidaResponseDto {
         this.nomeMandante = nomeMandante;
     }
 
-    public Long getClubeVisistanteId() {
-        return clubeVisistanteId;
-    }
-
-    public void setClubeVisistanteId(Long clubeVisistanteId) {
-        this.clubeVisistanteId = clubeVisistanteId;
-    }
-
     public String getNomeVisitante() {
         return nomeVisitante;
     }
@@ -67,20 +64,20 @@ public class PartidaResponseDto {
         this.nomeVisitante = nomeVisitante;
     }
 
-    public Long getEstadioId() {
-        return estadioId;
+    public Long getClubeMandanteId() {
+        return clubeMandanteId;
     }
 
-    public void setEstadioId(Long estadioId) {
-        this.estadioId = estadioId;
+    public void setClubeMandanteId(Long clubeMandanteId) {
+        this.clubeMandanteId = clubeMandanteId;
     }
 
-    public String getEstadioNome() {
-        return estadioNome;
+    public Long getClubeVisistanteId() {
+        return clubeVisistanteId;
     }
 
-    public void setEstadioNome(String estadioNome) {
-        this.estadioNome = estadioNome;
+    public void setClubeVisistanteId(Long clubeVisistanteId) {
+        this.clubeVisistanteId = clubeVisistanteId;
     }
 
     public Integer getPlacarMandante() {
@@ -99,11 +96,40 @@ public class PartidaResponseDto {
         this.placarVisitante = placarVisitante;
     }
 
-    public LocalDateTime getDataPartida() {
-        return dataPartida;
+    public Long getEstadioId() {
+        return estadioId;
     }
 
-    public void setDataPartida(LocalDateTime dataPartida) {
-        this.dataPartida = dataPartida;
+    public void setEstadioId(Long estadioId) {
+        this.estadioId = estadioId;
     }
+
+    public String getEstadioNome() {
+        return estadioNome;
+    }
+
+    public void setEstadioNome(String estadioNome) {
+        this.estadioNome = estadioNome;
+    }
+
+    public StatusPartida getStatusPartida() {
+        return statusPartida;
+    }
+
+    public void setStatusPartida(StatusPartida statusPartida) {
+        this.statusPartida = statusPartida;
+    }
+
+    public PartidaResponseDto(Partida partida) {
+        this.id = partida.getPartidaId();
+        this.dataPartida = partida.getDataHora();
+        this.nomeMandante = (partida.getClubeMandante() != null) ? partida.getClubeMandante().getNomeClube() : null;
+        this.nomeVisitante = (partida.getGolsVisitante() != null) ? partida.getClubeVisitante().getNomeClube() : null;
+        this.placarMandante = partida.getGolsMandante();
+        this.placarVisitante = partida.getGolsVisitante();
+        this.statusPartida = partida.getStatusPartida();
+
+
+    }
+
 }

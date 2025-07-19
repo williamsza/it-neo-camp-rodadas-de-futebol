@@ -24,7 +24,7 @@ public class Clube {
     private Integer totalJogos;
     @NotBlank
     private String siglaEstado;
-    private String estadoClube;
+    //private String estadoClube;
     private LocalDate dataCriacao;
     @NotNull
     private boolean statusClube;
@@ -95,13 +95,13 @@ public class Clube {
         this.siglaEstado = siglaEstado;
     }
 
-    public String getEstadoClube() {
-        return estadoClube;
-    }
+//    public String getEstadoClube() {
+//        return estadoClube;
+//    }
 
-    public void setEstadoClube(String estadoClube) {
-        this.estadoClube = estadoClube;
-    }
+//    public void setEstadoClube(String estadoClube) {
+//        this.estadoClube = estadoClube;
+//    }
 
     public LocalDate getDataCriacao() {
         return dataCriacao;
