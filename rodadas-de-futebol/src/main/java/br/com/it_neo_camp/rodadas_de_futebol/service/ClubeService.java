@@ -143,6 +143,7 @@ public class ClubeService {
         return new ClubeResponseDto(clubeAtualizado);
 
     }
+
     @Transactional
     public void inativarClube(Long id) {
         if (!repository.existsById(id)) {

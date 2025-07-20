@@ -1,8 +1,8 @@
 package br.com.it_neo_camp.rodadas_de_futebol.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,16 +10,15 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "partidas")
 public class Partida {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long partidaId;
+    private long id;
 
-    @NotNull(message = "A data e hora da partida são obrigatórias.")
+    @NotNull(message = "A data e hora da partida são obrigatórias..")
     @Column(nullable = false)
     private LocalDateTime dataHora;
 
@@ -36,14 +35,23 @@ public class Partida {
     private Estadio estadio;
 
     @NotNull(message = "Os gols do mandante são obrigatórios.")
+    @Min(value = 0, message = "Os gols do mandante não podem ser negativos.")
     @Column(nullable = false)
     private Integer golsMandante;
 
+    @NotNull(message = "Os gols do visitante são obrigatórios.")
+    @Min(value = 0, message = "Os gols do visitante não podem ser negativos.")
     private Integer golsVisitante;
+
     @Enumerated(EnumType.STRING)
     @NotNull(message = "O status da partida é obrigatório.")
     @Column(nullable = false)
     private StatusPartida statosPartida;
+
+
+    public boolean isGoleada() {
+        return Math.abs(golsMandante - golsVisitante) >= 3;
+    }
 
 
 

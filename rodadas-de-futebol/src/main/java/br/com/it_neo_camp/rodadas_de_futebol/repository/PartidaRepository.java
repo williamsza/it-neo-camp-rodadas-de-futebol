@@ -2,11 +2,13 @@ package br.com.it_neo_camp.rodadas_de_futebol.repository;
 
 import br.com.it_neo_camp.rodadas_de_futebol.model.Clube;
 import br.com.it_neo_camp.rodadas_de_futebol.model.Partida;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -18,6 +20,11 @@ public interface PartidaRepository extends JpaRepository<Partida, Long> {
     List<Partida> findByClubeInvolvedAndDataBetween(@Param("clube") Clube clube,
                                                     @Param("dataJogo") LocalDate dataJogo);
 
+    boolean existEstadioAndDataHoraBetween(@NotNull(message = "O ID do estádio é obrigatório.") Long estadioId, LocalDateTime localDateTime, LocalDateTime localDateTime1);
 
-   //List<Partida> findByEstadioAndDataBetween(Estadio estadio, LocalDate atStartOfDay);
+    boolean existsByClubeMandanteIdAndDataHoraBetweenOrClubeVisitanteIdAndDataHoraBetween(long id, LocalDateTime inicioPeriodo, LocalDateTime fimPeriodo, long mandanteId, LocalDateTime periodo, LocalDateTime localDateTime);
+
+    boolean existsByEstadioIdAndDataHoraBetween(Long estadioId, LocalDateTime inicio, LocalDateTime fim);
+
+    //List<Partida> findByEstadioAndDataBetween(Estadio estadio, LocalDate atStartOfDay);
 }

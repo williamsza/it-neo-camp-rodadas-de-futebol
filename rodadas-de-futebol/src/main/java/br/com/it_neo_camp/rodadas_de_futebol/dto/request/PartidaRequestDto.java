@@ -4,7 +4,6 @@ import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,24 +12,25 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 
 public class PartidaRequestDto {
 
-
     @NotNull(message = "A data e hora da partida são obrigatórias.")
-    @PastOrPresent(message = "A data e hora da partida não podem estar no futuro.")
+   // @PastOrPresent(message = "A data e hora da partida não podem estar no futuro.")
     @FutureOrPresent(message = "A data da partida não pode ser no passado.")
-    private LocalDateTime dataDaPartida;
+
+    private LocalDateTime dataHora;
 
     @NotNull(message = "O ID do clube mandante é obrigatório.")
     private Long clubeMandanteId;
 
     @NotNull(message = "O ID do clube visitante é obrigatório.")
     private Long clubeVisitanteId;
+
     @NotNull(message = "O ID do estádio é obrigatório.")
     private Long estadioId;
+
     @NotNull(message = "O placar do mandante é obrigatório.")
     @Min(value = 0, message = "O placar do mandante não pode ser negativo.")
     private Integer placarMandante;
