@@ -2,8 +2,16 @@ package br.com.it_neo_camp.rodadas_de_futebol.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "partidas")
 public class Partida {
@@ -37,81 +45,6 @@ public class Partida {
     @Column(nullable = false)
     private StatusPartida statosPartida;
 
-    public Partida() {
-    }
 
-    public Partida(long partidaId, Clube clubeMandante, Clube clubeVisitante, Estadio estadio, Integer golsMandante, Integer placarVisitante, LocalDateTime dataHora, StatusPartida statosPartida) {
-        this.partidaId = partidaId;
-        this.clubeMandante = clubeMandante;
-        this.clubeVisitante = clubeVisitante;
-        this.estadio = estadio;
-        this.golsMandante = golsMandante;
-        this.golsVisitante = placarVisitante;
-        this.dataHora = dataHora;
-        this.statosPartida = statosPartida;
-    }
 
-    public long getPartidaId() {
-        return partidaId;
-    }
-
-    public void setPartidaId(LocalDateTime partidaId) {
-        this.partidaId = partidaId;
-    }
-
-    public LocalDateTime getDataHora() {
-        return dataHora;
-    }
-
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
-    }
-
-    public Clube getClubeMandante() {
-        return clubeMandante;
-    }
-
-    public void setClubeMandante(Clube clubeMandante) {
-        this.clubeMandante = clubeMandante;
-    }
-
-    public Clube getClubeVisitante() {
-        return clubeVisitante;
-    }
-
-    public void setClubeVisitante(Clube clubeVisitante) {
-        this.clubeVisitante = clubeVisitante;
-    }
-
-    public Estadio getEstadio() {
-        return estadio;
-    }
-
-    public void setEstadio(Estadio estadio) {
-        this.estadio = estadio;
-    }
-
-    public Integer getGolsMandante() {
-        return golsMandante;
-    }
-
-    public void setGolsMandante(Integer golsMandante) {
-        this.golsMandante = golsMandante;
-    }
-
-    public Integer getGolsVisitante() {
-        return golsVisitante;
-    }
-
-    public void setGolsVisitante(Integer golsVisitante) {
-        this.golsVisitante = golsVisitante;
-    }
-
-    public StatusPartida getStatusPartida() {
-        return statosPartida;
-    }
-
-    public void setStatosPartida(StatusPartida statosPartida) {
-        this.statosPartida = statosPartida;
-    }
 }

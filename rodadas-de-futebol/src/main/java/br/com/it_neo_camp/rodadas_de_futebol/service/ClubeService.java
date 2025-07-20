@@ -24,8 +24,8 @@ public class ClubeService {
 
     @Transactional
     public ClubeResponseDto cadastraNovoClube(ClubeRequestDto request) {
-        if (repository.existsByNomeClube(request.getNomeClube())) {
-            throw new ClubeExistenteException(request.getNomeClube());
+        if (repository.existsByNome(request.getNome())) {
+            throw new ClubeExistenteException(request.getNome());
 
         }
         String sigla = request.getSiglaEstado();
@@ -34,7 +34,7 @@ public class ClubeService {
         }
 
         Clube novoClube = new Clube();
-        novoClube.setNomeClube(request.getNomeClube());
+        novoClube.setNome(request.getNome());
         novoClube.setSiglaEstado(sigla.toUpperCase());
         novoClube.setDataCriacao(request.getDataCriacao());
 
@@ -128,24 +128,23 @@ public class ClubeService {
         Clube clube = repository.findById(id).filter(Clube::isAtivo)
                 .orElseThrow(() -> new ClubeNaoEncontradoException(id));
 
-        if (repository.existsByNomeClube(request.getNomeClube()) && !clube.getNomeClube().equals(request.getNomeClube())) {
-            throw new ClubeExistenteException(request.getNomeClube());
+        if (repository.existsByNome(request.getNome()) && !clube.getNome().equals(request.getNome())) {
+            throw new ClubeExistenteException(request.getNome());
 
 
         }
-        clube.setNomeClube(request.getNomeClube());
+        clube.setNome(request.getNome());
         clube.setSiglaEstado(request.getSiglaEstado());
         //clube.setEstadoClube(request.getEstadoDoClube());
         clube.setDataCriacao(request.getDataCriacao());
-        clube.setStatusClube(request.getStatusClube());
+        //clube.setStatusClube(request.getStatusClube());
 
         Clube clubeAtualizado = repository.save(clube);
         return new ClubeResponseDto(clubeAtualizado);
 
     }
-
     @Transactional
-    public void deletarClube(Long id) {
+    public void inativarClube(Long id) {
         if (!repository.existsById(id)) {
             throw new ClubeNaoEncontradoException(id);
         }
@@ -153,6 +152,9 @@ public class ClubeService {
             throw new OperacaoClubeInvalidaException("Clube ja esta desativado");
 
         }
+
     }
+
+
 }
 

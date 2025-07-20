@@ -4,8 +4,17 @@ import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 
 public class PartidaRequestDto {
 
@@ -32,59 +41,5 @@ public class PartidaRequestDto {
 
     private String StatusPartida;
 
-    public Long getClubeMandanteId() {
-        return clubeMandanteId;
-    }
 
-    public void setClubeMandanteId(Long clubeMandanteId) {
-        this.clubeMandanteId = clubeMandanteId;
-    }
-
-    public Long getClubeVisitanteId() {
-        return clubeVisitanteId;
-    }
-
-    public void setClubeVisitanteId(Long clubeVisitanteId) {
-        this.clubeVisitanteId = clubeVisitanteId;
-    }
-
-    public Long getEstadioId() {
-        return estadioId;
-    }
-
-    public void setEstadioId(Long estadioId) {
-        this.estadioId = estadioId;
-    }
-
-    public Integer getPlacarMandante() {
-        return placarMandante;
-    }
-
-    public void setPlacarMandante(Integer placarMandante) {
-        this.placarMandante = placarMandante;
-    }
-
-    public Integer getPlacarVisitante() {
-        return placarVisitante;
-    }
-
-    public void setPlacarVisitante(Integer placarVisitante) {
-        this.placarVisitante = placarVisitante;
-    }
-
-    public LocalDateTime getDataDaPartida() {
-        return dataDaPartida;
-    }
-
-    public void setDataDaPartida(LocalDateTime dataDaPartida) {
-        this.dataDaPartida = dataDaPartida;
-    }
-
-    public String getStatusPartida() {
-        return StatusPartida;
-    }
-
-    public void setStatusPartida(String statusPartida) {
-        StatusPartida = statusPartida;
-    }
 }

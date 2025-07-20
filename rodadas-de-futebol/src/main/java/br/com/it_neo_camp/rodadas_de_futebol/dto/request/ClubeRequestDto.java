@@ -17,8 +17,8 @@ public class ClubeRequestDto {
 
     @NotBlank(message = "Nome do clube é obrigatório.")
     @Size(min = 3, message = "Nome do clube deve ter ao menos 3 letras.")
-    private String nomeClube;
-    private String estadoClube;
+    private String nome;
+    //private String estadoClube;
     @NotBlank(message = "Sigla do Estado é obrigatória.")
     @Pattern(regexp = "AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO", message = "Sigla do Estado deve ser uma UF válida do Brasil.")
     private String siglaEstado;

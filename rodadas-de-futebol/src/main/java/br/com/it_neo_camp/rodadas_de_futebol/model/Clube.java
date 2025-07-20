@@ -4,28 +4,34 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "clubes")
 public class Clube {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long clubeId;
-    @NotNull
-    @Size(min = 2)
-    private String nomeClube;
+    private long id;
+    @Size(min = 2, message = "Nome do clube deve ter ao menos 2 letras.")
+    private String nome;
     private Integer totalPontos;
     private Integer totalGols;
     private Integer totalVitorias;
     private Integer totalJogos;
     @NotBlank
+    @Size(min = 2, max = 2)
     private String siglaEstado;
     //private String estadoClube;
-    private LocalDate dataCriacao;
+    private LocalDateTime dataCriacao;
     @NotNull
     private boolean statusClube;
     @Column(nullable = false)
@@ -39,83 +45,5 @@ public class Clube {
         this.ativo = ativo;
     }
 
-    public long getClubeId() {
-        return clubeId;
-    }
 
-    public void setClubeId(long clubeId) {
-        this.clubeId = clubeId;
-    }
-
-    public String getNomeClube() {
-        return nomeClube;
-    }
-
-    public void setNomeClube(String nomeClube) {
-        this.nomeClube = nomeClube;
-    }
-
-    public Integer getTotalPontos() {
-        return totalPontos;
-    }
-
-    public void setTotalPontos(Integer totalPontos) {
-        this.totalPontos = totalPontos;
-    }
-
-    public Integer getTotalGols() {
-        return totalGols;
-    }
-
-    public void setTotalGols(Integer totalGols) {
-        this.totalGols = totalGols;
-    }
-
-    public Integer getTotalVitorias() {
-        return totalVitorias;
-    }
-
-    public void setTotalVitorias(Integer totalVitorias) {
-        this.totalVitorias = totalVitorias;
-    }
-
-    public Integer getTotalJogos() {
-        return totalJogos;
-    }
-
-    public void setTotalJogos(Integer totalJogos) {
-        this.totalJogos = totalJogos;
-    }
-
-    public String getSiglaEstado() {
-        return siglaEstado;
-    }
-
-    public void setSiglaEstado(String siglaEstado) {
-        this.siglaEstado = siglaEstado;
-    }
-
-//    public String getEstadoClube() {
-//        return estadoClube;
-//    }
-
-//    public void setEstadoClube(String estadoClube) {
-//        this.estadoClube = estadoClube;
-//    }
-
-    public LocalDate getDataCriacao() {
-        return dataCriacao;
-    }
-
-    public void setDataCriacao(LocalDate dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
-
-    public boolean isStatusClube() {
-        return statusClube;
-    }
-
-    public void setStatusClube(boolean statusClube) {
-        this.statusClube = statusClube;
-    }
 }
