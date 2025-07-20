@@ -4,9 +4,17 @@ import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PartidaRequestDto {
 
 
@@ -72,19 +80,5 @@ public class PartidaRequestDto {
         this.placarVisitante = placarVisitante;
     }
 
-    public LocalDateTime getDataDaPartida() {
-        return dataDaPartida;
-    }
 
-    public void setDataDaPartida(LocalDateTime dataDaPartida) {
-        this.dataDaPartida = dataDaPartida;
-    }
-
-    public String getStatusPartida() {
-        return StatusPartida;
-    }
-
-    public void setStatusPartida(String statusPartida) {
-        StatusPartida = statusPartida;
-    }
 }
