@@ -12,7 +12,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler({
             DadosInvalidosException.class,
-            ConflitoDadosException.class,
+            //ConflitoDadosException.class,
             RecursoNaoEncontradoException.class,
             ClubeExistenteException.class,
             ClubeNaoEncontradoException.class,
@@ -24,18 +24,11 @@ public class RestExceptionHandler {
     public ResponseEntity<String> handleCustomExceptions(Exception ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
+    @ExceptionHandler(ConflitoDadosException.class)
+    public ResponseEntity<String> handleConflitoDadosException(ConflitoDadosException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
 
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException ex) {
-//        String msg = ex.getBindingResult().getFieldErrors().stream()
-//                .map(e -> e.getField() + ": " + e.getDefaultMessage())
-//                .findFirst()
-//                .orElse("Erro de validação");
-//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(msg);
-//    }
-
-    // src/main/java/br/com/it_neo_camp/rodadas_de_futebol/exception/RestExceptionHandler.java
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleValidationException(MethodArgumentNotValidException ex) {
@@ -50,6 +43,7 @@ public class RestExceptionHandler {
     public ResponseEntity<String> handleGenericException(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro interno: " + ex.getMessage());
     }
+
 
 
 

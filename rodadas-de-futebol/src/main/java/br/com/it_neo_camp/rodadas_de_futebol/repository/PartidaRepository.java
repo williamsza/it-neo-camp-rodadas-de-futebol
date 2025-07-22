@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -19,5 +20,7 @@ public interface PartidaRepository extends JpaRepository<Partida, Long> {
                                                     @Param("dataJogo") LocalDate dataJogo);
 
 
-   //List<Partida> findByEstadioAndDataBetween(Estadio estadio, LocalDate atStartOfDay);
+    boolean existsByClubeMandanteIdAndClubeVisitanteIdAndDataHora(Long clubeMandanteId, Long clubeVisitanteId, LocalDateTime dataHora);
+
+    //List<Partida> findByEstadioAndDataBetween(Estadio estadio, LocalDate atStartOfDay);
 }

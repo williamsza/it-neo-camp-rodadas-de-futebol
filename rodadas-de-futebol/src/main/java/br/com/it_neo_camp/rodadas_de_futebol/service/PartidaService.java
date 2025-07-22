@@ -61,6 +61,7 @@ public class PartidaService {
 
         }
         validarPlacarNaoNegativo(request);
+        verificarPartidaDuplicada(request);
 
         Partida novaPartida = new Partida(clubeMandante, clubeVisitante, request.getPlacarMandante(),
                 request.getPlacarVisitante(), estadio, request.getDataHora()
@@ -138,6 +139,14 @@ public class PartidaService {
     private void validarPlacarNaoNegativo(PartidaRequestDto request) {
         if (request.getPlacarMandante() < 0 || request.getPlacarVisitante() < 0) {
             throw new PlacarInvalidoException("Placar não pode ser negativo.");
+        }
+    }
+
+    private void verificarPartidaDuplicada(PartidaRequestDto request) throws ConflitoDadosException {
+        boolean existe = partidaRepository.existsByClubeMandanteIdAndClubeVisitanteIdAndDataHora(
+                request.getClubeMandanteId(), request.getClubeVisitanteId(), request.getDataHora());
+        if (existe) {
+            throw new ConflitoDadosException("Já existe uma partida agendada entre os clubes para a data e hora informadas.");
         }
     }
 
