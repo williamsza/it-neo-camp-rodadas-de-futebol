@@ -60,6 +60,7 @@ public class PartidaService {
             throw new ConflitoDadosException("A data da partida náo pode ser anterior a data de criacao de um dos clubes envolvidos! ");
 
         }
+        validarPlacarNaoNegativo(request);
 
         Partida novaPartida = new Partida(clubeMandante, clubeVisitante, request.getPlacarMandante(),
                 request.getPlacarVisitante(), estadio, request.getDataHora()

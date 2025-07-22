@@ -1,8 +1,9 @@
 package br.com.it_neo_camp.rodadas_de_futebol.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -32,7 +33,7 @@ public class Partida {
     @Column(nullable = false)
     private LocalDateTime dataHora;
     @Enumerated(EnumType.STRING)
-    @NotNull
+   // @NotNull
     private StatusPartida statusPartida;
 
     public Partida(Clube clubeMandante, Clube clubeVisitante, Integer placarMandante,
