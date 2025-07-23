@@ -60,6 +60,16 @@ public class PartidaService {
             throw new ConflitoDadosException("A data da partida náo pode ser anterior a data de criacao de um dos clubes envolvidos! ");
 
         }
+        if (!estadio.isAtivo()) {
+            throw new ConflitoDadosException("Estádio está inativo.");
+        }
+
+        boolean estadioOcupado = partidaRepository.existsByEstadioIdAndDataHora(request.getEstadioId(), request.getDataHora());
+        if (estadioOcupado) {
+            throw new ConflitoDadosException("Já existe uma partida agendada neste estádio para o horário informado.");
+        }
+
+
         validarPlacarNaoNegativo(request);
         verificarPartidaDuplicada(request);
 

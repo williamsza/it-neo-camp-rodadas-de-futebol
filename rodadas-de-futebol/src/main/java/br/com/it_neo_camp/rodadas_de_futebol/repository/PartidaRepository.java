@@ -22,5 +22,7 @@ public interface PartidaRepository extends JpaRepository<Partida, Long> {
 
     boolean existsByClubeMandanteIdAndClubeVisitanteIdAndDataHora(Long clubeMandanteId, Long clubeVisitanteId, LocalDateTime dataHora);
 
+    boolean existsByEstadioIdAndDataHora(Long estadioId, LocalDateTime dataHora);
+
     //List<Partida> findByEstadioAndDataBetween(Estadio estadio, LocalDate atStartOfDay);
 }
