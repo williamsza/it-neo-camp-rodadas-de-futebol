@@ -144,12 +144,20 @@ public class ClubeService {
         clube.setEstadoClube(mapearSiglaParaEstado(request.getSiglaEstado()));
         clube.setEstadoClube(request.getEstadoClube());
 
-        //clube.setStatusClube(request.getStatusClube()); Remover se 'ativo' for o único campo de status
+        //clube.setStatusClube(request.getStatusClube());
 
-        if (request.getAtivo() != null) {// Verifica se o campo ativo foi enviado na requisição
-            clube.setAtivo(request.getAtivo());// Atualiza o status do clube
-            throw new OperacaoClubeInvalidaException("Clube já está ativo");//
+        if (request.getAtivo() != null) {
+            if (clube.isAtivo() == request.getAtivo()) {
+                throw new OperacaoClubeInvalidaException("Clube já está " + (clube.isAtivo() ? "ativo" : "inativo"));
+            }
+            clube.setAtivo(request.getAtivo());
         }
+
+
+//        if (request.getAtivo() != null) {
+//            clube.setAtivo(request.getAtivo());
+//            throw new OperacaoClubeInvalidaException("Clube já está ativo");//
+//        }
         // clube.setAtivo(true);
 
         Clube clubeAtualizado = repository.save(clube);
@@ -157,21 +165,18 @@ public class ClubeService {
 
     }
 
-    @Transactional
+    // @Transactional
     public void inativarClube(Long id) {
-
-        if (!repository.existsById(id)) {
-            throw new ClubeNaoEncontradoException(id);
-
-        }
         Clube clube = repository.findById(id)
                 .orElseThrow(() -> new ClubeNaoEncontradoException(id));
-
         if (!clube.isAtivo()) {
-            throw new OperacaoClubeInvalidaException("Clube já está desativado");
+            throw new OperacaoClubeInvalidaException("Clube já está inativo");
+
         }
         clube.setAtivo(false);
         repository.save(clube);
+
+
     }
 }
 
