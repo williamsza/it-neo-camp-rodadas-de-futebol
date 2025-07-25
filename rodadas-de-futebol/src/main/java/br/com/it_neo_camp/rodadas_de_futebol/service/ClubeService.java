@@ -27,6 +27,15 @@ public class ClubeService {
     @Transactional
     public ClubeResponseDto cadastraNovoClube(ClubeRequestDto request) {
 
+        if (!UF_PATTERN.matcher(request.getSiglaEstado()).matches()) {
+            throw new OperacaoClubeInvalidaException("Sigla do Estado deve ser uma UF válida do Brasil." + request.getSiglaEstado());
+
+        }
+        if (repository.existsByNome(request.getNomeClube())){
+            throw new ClubeExistenteException(request.getNomeClube());
+
+        }
+
         if (repository.existsByNome(request.getNomeClube())) {
             throw new ClubeExistenteException(request.getNomeClube());
         }
