@@ -87,7 +87,6 @@ class ClubeServiceTest {
     @Test
     void deveLancarExcecaoAoCadastrarClubeExistente() {
 
-
         ClubeRequestDto request = new ClubeRequestDto("Clube A", "SP", "São Paulo", LocalDateTime.now(), true);
 
         when(clubeRepository.existsByNome("Clube A")).thenReturn(true);
@@ -174,6 +173,16 @@ class ClubeServiceTest {
         assertThrows(Exception.class, () -> clubeService.cadastraNovoClube(request));
         //when(clubeRepository.existsByNome("Clube A")).thenReturn(false);
     }
+    @Test
+    void deveLancarExcecaoAoCadastrarClubeComNomeDuplicadoCaseInsensitive(){
+
+        ClubeRequestDto request = new ClubeRequestDto("Clube X", "SP", "São Paulo", LocalDateTime.now(), true);
+
+        when(clubeRepository.existsByNome("Clube X")).thenReturn(true);
+
+        assertThrows(ClubeExistenteException.class, ()-> clubeService.cadastraNovoClube(request));
+    }
+
 
 
 }
