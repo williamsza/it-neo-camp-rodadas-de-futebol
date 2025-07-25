@@ -44,12 +44,17 @@ public class PartidaController {
     public ResponseEntity<List<PartidaResponseDto>> pesquisarTodasPartidas() {
         return ResponseEntity.ok(partidaService.pesquisarTodasPartidas());
     }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarPartida(@PathVariable Long id) {
-        partidaService.deletarPartida(id);
-        return ResponseEntity.noContent().build();
+    @PatchMapping("/{id}/inativar")
+    public ResponseEntity<PartidaResponseDto> inativarPartida(@PathVariable Long id) {
+        PartidaResponseDto response = partidaService.inativarPartida(id);
+        return ResponseEntity.ok(response);
     }
+
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deletarPartida(@PathVariable Long id) {
+//        partidaService.deletarPartida(id);
+//        return ResponseEntity.noContent().build();
+//    }
 
 
 }

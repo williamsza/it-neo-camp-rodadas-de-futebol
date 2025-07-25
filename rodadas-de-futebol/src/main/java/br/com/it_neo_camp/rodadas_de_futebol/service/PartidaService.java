@@ -20,7 +20,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PartidaService {
@@ -136,14 +135,24 @@ public class PartidaService {
                 .toList();
     }
 
+    /* @Transactional
+     public boolean deletarPartida(Long id) {
+         Optional<Partida> partida = partidaRepository.findById(id);
+         if (partida.isPresent()) {
+             partidaRepository.deleteById(id);
+             return true;
+         }
+         return false;
+     }*/
+
     @Transactional
-    public boolean deletarPartida(Long id) {
-        Optional<Partida> partida = partidaRepository.findById(id);
-        if (partida.isPresent()) {
-            partidaRepository.deleteById(id);
-            return true;
-        }
-        return false;
+    public PartidaResponseDto inativarPartida(Long id) {
+        Partida partida = partidaRepository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Partida ", "ID" + id));
+        partida.setAtivo(false);
+        Partida partiaInativada = partidaRepository.save(partida);
+        return PartidaResponseDto.fromEntity(partiaInativada);
+
     }
 
     private void validarPlacarNaoNegativo(PartidaRequestDto request) {

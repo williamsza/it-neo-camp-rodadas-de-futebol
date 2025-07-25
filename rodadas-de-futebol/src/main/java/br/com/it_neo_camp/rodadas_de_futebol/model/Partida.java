@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +13,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Where(clause = "ativo = true")
+
+@SQLDelete(sql = "UPDATE partida SET ativo = false WHERE id = ?")
+
 @Table(name = "partidas")
 public class Partida {
     @Id
@@ -35,6 +41,8 @@ public class Partida {
     @Enumerated(EnumType.STRING)
    // @NotNull
     private StatusPartida statusPartida;
+    @Column(nullable = false)
+    private Boolean ativo = true;
 
     public Partida(Clube clubeMandante, Clube clubeVisitante, Integer placarMandante,
                    Integer placarVisitante, Estadio estadio, LocalDateTime dataHora) {
@@ -46,7 +54,6 @@ public class Partida {
         this.dataHora = dataHora;
         this.statusPartida = StatusPartida.AGENDADA; 
     }
-
 
 }
 

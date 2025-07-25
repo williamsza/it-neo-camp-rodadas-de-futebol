@@ -7,9 +7,11 @@ import br.com.it_neo_camp.rodadas_de_futebol.exception.PlacarInvalidoException;
 import br.com.it_neo_camp.rodadas_de_futebol.exception.RecursoNaoEncontradoException;
 import br.com.it_neo_camp.rodadas_de_futebol.model.Clube;
 import br.com.it_neo_camp.rodadas_de_futebol.model.Estadio;
+import br.com.it_neo_camp.rodadas_de_futebol.model.Partida;
 import br.com.it_neo_camp.rodadas_de_futebol.repository.ClubeRepository;
 import br.com.it_neo_camp.rodadas_de_futebol.repository.EstadioRepository;
 import br.com.it_neo_camp.rodadas_de_futebol.repository.PartidaRepository;
+import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -17,9 +19,10 @@ import org.mockito.Mockito;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 class PartidaServiceTest {
 
@@ -194,6 +197,103 @@ class PartidaServiceTest {
 
     }
 
+    @Test
+    void deveRetornarPartidaQuandoIdExiste() {
 
+        Clube mandante = new Clube(clubeMandanteId, "Mandante", true, dataHora.minusYears(1));
+
+        Clube visitante = new Clube(clubeVisitanteId, "Visitante", true, dataHora.minusYears(1));
+
+        Estadio estadio = new Estadio(estadioId, "Estádio", true);
+
+        Partida partida = new Partida(mandante, visitante, 1, 2, estadio, dataHora);
+
+        when(partidaRepository.findById(1L)).thenReturn(Optional.of(partida));
+
+        assertDoesNotThrow(() -> partidaService.pesquisarPartidaPorId(1L));
+
+    }
+
+    @Test
+    void deveLancarExcecaoQuandoIdNaoExiste() {
+
+        when(partidaRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(RecursoNaoEncontradoException.class, () -> partidaService.pesquisarPartidaPorId(1L));
+
+    }
+
+    @Test
+    void deveCadastrarPartidaComSucesso() {
+
+        PartidaRequestDto request = new PartidaRequestDto(clubeMandanteId, clubeVisitanteId, estadioId, 1, 2, dataHora);
+
+        when(partidaRepository.save(any(Partida.class))).thenReturn(new Partida(
+                new Clube(clubeMandanteId, "Mandante", true, dataHora.minusYears(1)),
+                new Clube(clubeVisitanteId, "Visitante", true, dataHora.minusYears(1)),
+                1, 2,
+                new Estadio(estadioId, "Estádio", true),
+                dataHora
+        ));
+
+        assertDoesNotThrow(() -> partidaService.cadastrarPartida(request));
+    }
+
+    @Test
+    void deveAtualizarPartidaComSucesso() {
+
+        PartidaRequestDto request = new PartidaRequestDto(clubeMandanteId, clubeVisitanteId, estadioId, 1, 2, dataHora);
+
+        when(partidaRepository.findById(1L)).thenReturn(Optional.of(new Partida(
+                new Clube(clubeMandanteId, "Mandante", true, dataHora.minusYears(1)),
+                new Clube(clubeVisitanteId, "Visitante", true, dataHora.minusYears(1)),
+                0, 0,
+                new Estadio(estadioId, "Estádio", true),
+                dataHora
+        )));
+
+        when(partidaRepository.save(any(Partida.class))).thenReturn(new Partida(
+                new Clube(clubeMandanteId, "Mandante", true, dataHora.minusYears(1)),
+                new Clube(clubeVisitanteId, "Visitante", true, dataHora.minusYears(1)),
+                1, 2,
+                new Estadio(estadioId, "Estádio", true),
+                dataHora
+        ));
+
+        assertDoesNotThrow(() -> partidaService.atualizarPartida(1L, request));
+    }
+
+    @Test
+    void deveLancarExcecaoAoAtualizarPartidaComClubesIguais() {
+
+        PartidaRequestDto request = new PartidaRequestDto(clubeMandanteId, clubeMandanteId, estadioId, 1, 2, dataHora);
+
+        when(partidaRepository.findById(1L)).thenReturn(Optional.of(new Partida(
+                new Clube(clubeMandanteId, "Mandante", true, dataHora.minusYears(1)),
+                new Clube(clubeVisitanteId, "Visitante", true, dataHora.minusYears(1)),
+                0, 0,
+                new Estadio(estadioId, "Estádio", true),
+                dataHora
+        )));
+
+        assertThrows(DadosInvalidosException.class, () -> partidaService.atualizarPartida(1L, request));
+    }
+
+    @Test
+    void deveLancarExcecaoAoAtualizarPartidaComPlacarNegativo() {
+
+        PartidaRequestDto request = new PartidaRequestDto(clubeMandanteId, clubeVisitanteId, estadioId, -1, 2, dataHora);
+
+        when(partidaRepository.findById(1L)).thenReturn(Optional.of(new Partida(
+                new Clube(clubeMandanteId, "Mandante", true, dataHora.minusYears(1)),
+                new Clube(clubeVisitanteId, "Visitante", true, dataHora.minusYears(1)),
+                0, 0,
+                new Estadio(estadioId, "Estádio", true),
+                dataHora
+        )));
+
+       // assertThrows(PlacarInvalidoException.class, () -> partidaService.atualizarPartida(1L, request));
+        assertThrows(ConstraintViolationException.class, () -> partidaService.atualizarPartida(1L, request));
+    }
 }
 
