@@ -93,6 +93,11 @@ public class PartidaService {
     public Page<PartidaResponseDto> listarPartidasPaginado(Pageable pageable) {
         return partidaRepository.findAll(pageable).map(PartidaResponseDto::fromEntity);
     }
+    public List <PartidaResponseDto> listarPartidasAtivas(){
+        return partidaRepository.findByAtivoTrue().stream()
+                .map(PartidaResponseDto::fromEntity)
+                .toList();
+    }
 
     @Transactional
     public PartidaResponseDto atualizarPartida(Long id, @Valid PartidaRequestDto request) throws ConflitoDadosException {
@@ -150,8 +155,8 @@ public class PartidaService {
         Partida partida = partidaRepository.findById(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Partida ", "ID" + id));
         partida.setAtivo(false);
-        Partida partiaInativada = partidaRepository.save(partida);
-        return PartidaResponseDto.fromEntity(partiaInativada);
+        Partida partidaInativada = partidaRepository.save(partida);
+        return PartidaResponseDto.fromEntity(partidaInativada);
 
     }
 
