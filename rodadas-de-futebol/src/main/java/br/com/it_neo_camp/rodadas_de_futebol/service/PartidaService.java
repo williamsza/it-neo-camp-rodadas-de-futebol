@@ -76,6 +76,10 @@ public class PartidaService {
                 request.getPlacarVisitante(), estadio, request.getDataHora()
         );
         Partida partidaSalva = partidaRepository.save(novaPartida);
+
+        atualizarEstatisticasClubes(clubeMandante, clubeVisitante, request.getPlacarMandante(), request.getPlacarVisitante());
+
+
         return PartidaResponseDto.fromEntity(partidaSalva);
 
 
@@ -93,7 +97,8 @@ public class PartidaService {
     public Page<PartidaResponseDto> listarPartidasPaginado(Pageable pageable) {
         return partidaRepository.findAll(pageable).map(PartidaResponseDto::fromEntity);
     }
-    public List <PartidaResponseDto> listarPartidasAtivas(){
+
+    public List<PartidaResponseDto> listarPartidasAtivas() {
         return partidaRepository.findByAtivoTrue().stream()
                 .map(PartidaResponseDto::fromEntity)
                 .toList();
@@ -130,6 +135,9 @@ public class PartidaService {
         partida.setEstadio(estadio);
         partida.setDataHora(request.getDataHora());
         Partida partidaAtualizada = partidaRepository.save(partida);
+
+        atualizarEstatisticasClubes(clubeMandante, clubeVisitante, request.getPlacarMandante(), request.getPlacarVisitante());
+
         return PartidaResponseDto.fromEntity(partidaAtualizada);
     }
 
@@ -172,6 +180,46 @@ public class PartidaService {
         if (existe) {
             throw new ConflitoDadosException("Já existe uma partida agendada entre os clubes para a data e hora informadas.");
         }
+    }
+
+    private void atualizarEstatisticasClubes(Clube mandante, Clube visitante, int placarMandante, int placarVisitante) {
+
+        mandante.setTotalGols(mandante.getTotalGols() == null ? 0 : mandante.getTotalGols());
+        visitante.setTotalGols(visitante.getTotalGols() == null ? 0 : visitante.getTotalGols());
+        mandante.setTotalJogos(mandante.getTotalGols() == null ? 0 : mandante.getTotalGols());
+        visitante.setTotalJogos(visitante.getTotalGols() == null ? 0 : visitante.getTotalGols());
+        mandante.setTotalVitorias(mandante.getTotalVitorias() == null ? 0 : mandante.getTotalVitorias());
+        visitante.setTotalVitorias(visitante.getTotalVitorias() == null ? 0 : visitante.getTotalVitorias());
+        mandante.setTotalPontos(mandante.getTotalPontos() == null ? 0 : mandante.getTotalPontos());
+        visitante.setTotalPontos(visitante.getTotalPontos() == null ? 0 : visitante.getTotalPontos());
+
+        mandante.setTotalGols(mandante.getTotalGols() + placarMandante);
+        visitante.setTotalGols(visitante.getTotalGols() + placarVisitante);
+        mandante.setTotalJogos(mandante.getTotalJogos() + 1);
+        visitante.setTotalJogos(visitante.getTotalJogos() + 1);
+
+
+        if (placarMandante > placarVisitante) {
+            mandante.setTotalVitorias(mandante.getTotalVitorias() + 1);
+            mandante.setTotalPontos(mandante.getTotalPontos() + 3);
+
+            //visitante.setTotalDerrotas(visitante.getTotalDerrotas() + 1);
+        } else if (placarMandante < placarVisitante) {
+            visitante.setTotalVitorias(visitante.getTotalVitorias() + 1);
+            visitante.setTotalPontos(visitante.getTotalPontos() + 3);
+
+            mandante.setTotalJogos(mandante.getTotalJogos() + 1);
+
+            //mandante.setTotalEmpates(mandante.getTotalEmpates() + 1);
+            //visitante.setTotalEmpates(visitante.getTotalEmpates() + 1);
+
+
+        } else {
+            mandante.setTotalPontos(mandante.getTotalPontos() + 1);
+            visitante.setTotalPontos(visitante.getTotalPontos() + 1);
+        }
+
+
     }
 
 

@@ -13,13 +13,59 @@ public class ClubeResponseDto {
     private LocalDateTime dataCriacao;
     private Boolean ativo;
 
-    public ClubeResponseDto(Long id, String nomeClube, String estadoDoClube, String siglaDoClube, String siglaEstado, LocalDateTime dataDeCriacao, Boolean statusClube, Clube clubeSalvo) {
+    private Integer totalPontos;
+    private Integer totalGols;
+    private Integer totalVitorias;
+    private Integer totalJogos;
+
+
+    public Integer getTotalPontos() {
+        return totalPontos;
+    }
+
+    public void setTotalPontos(Integer totalPontos) {
+        this.totalPontos = totalPontos;
+    }
+
+    public Integer getTotalGols() {
+        return totalGols;
+    }
+
+    public void setTotalGols(Integer totalGols) {
+        this.totalGols = totalGols;
+    }
+
+    public Integer getTotalVitorias() {
+        return totalVitorias;
+    }
+
+    public void setTotalVitorias(Integer totalVitorias) {
+        this.totalVitorias = totalVitorias;
+    }
+
+    public Integer getTotalJogos() {
+        return totalJogos;
+    }
+
+    public void setTotalJogos(Integer totalJogos) {
+        this.totalJogos = totalJogos;
+    }
+
+    public ClubeResponseDto(Long id, String nomeClube, String estadoDoClube, String siglaDoClube, LocalDateTime dataDeCriacao, Boolean statusClube) {
         this.id = id;
         this.nomeClube = nomeClube;
         this.estadoClube = estadoDoClube;
         this.dataCriacao = dataDeCriacao;
         this.siglaEstado = siglaEstado;
         this.ativo = ativo;
+
+        this.totalPontos = 0; // Inicializa com zero, pode ser atualizado posteriormente
+        this.totalGols = 0; // Inicializa com zero, pode ser atualizado posteriormente
+        this.totalVitorias = 0; // Inicializa com zero, pode ser atualizado posteriormente
+        this.totalJogos = 0; // Inicializa com zero, pode ser atualizado posteriormente
+
+
+
 
     }
 
@@ -30,6 +76,15 @@ public class ClubeResponseDto {
         this.dataCriacao = clubeSalvo.getDataCriacao();
         this.siglaEstado = clubeSalvo.getSiglaEstado();
         //this.statusClube = clubeSalvo.isStatusClube();
+
+        this.totalPontos = clubeSalvo.getTotalPontos();
+        this.totalGols = clubeSalvo.getTotalGols();
+        this.totalVitorias = clubeSalvo.getTotalVitorias();
+        this.totalJogos = clubeSalvo.getTotalJogos();
+
+
+
+
         this.ativo = clubeSalvo.isAtivo();
     }
 
