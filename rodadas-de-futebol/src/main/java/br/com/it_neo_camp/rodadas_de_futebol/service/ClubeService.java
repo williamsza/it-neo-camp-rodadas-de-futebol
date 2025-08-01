@@ -31,7 +31,7 @@ public class ClubeService {
             throw new OperacaoClubeInvalidaException("Sigla do Estado deve ser uma UF válida do Brasil." + request.getSiglaEstado());
 
         }
-        if (repository.existsByNome(request.getNomeClube())){
+        if (repository.existsByNome(request.getNomeClube())) {
             throw new ClubeExistenteException(request.getNomeClube());
 
         }
@@ -53,6 +53,14 @@ public class ClubeService {
 
         return new ClubeResponseDto(clubeSalvo);
 
+    }
+
+    @Transactional
+    public ClubeResponseDto buscarClubeInativoPorId(Long id) {
+        Clube clube = repository.findById(id)
+                .filter(clube1 -> !clube1.isAtivo())
+                .orElseThrow(() -> new ClubeNaoEncontradoException(id));
+        return new ClubeResponseDto(clube);
     }
 
     private String mapearSiglaParaEstado(String sigla) {

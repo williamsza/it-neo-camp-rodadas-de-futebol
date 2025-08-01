@@ -39,6 +39,11 @@ public class ClubeController {
         ClubeResponseDto response = clubeService.buscarClubePorId(id);
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/inativos/{id}")
+    public ResponseEntity<ClubeResponseDto> buscarClubeInativoPorId(@PathVariable Long id) {
+        ClubeResponseDto response = clubeService.buscarClubeInativoPorId(id);
+        return ResponseEntity.ok(response);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<ClubeResponseDto> atualizarClube(@PathVariable Long id, @Valid @RequestBody ClubeRequestDto request) {
@@ -46,7 +51,7 @@ public class ClubeController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("inativar/{id}")
+    @PutMapping("inativar/{id}")
     public ResponseEntity<Void> inativarClube(@PathVariable Long id) {
         clubeService.inativarClube(id);
         return ResponseEntity.noContent().build();

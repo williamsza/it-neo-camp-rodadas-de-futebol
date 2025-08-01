@@ -59,12 +59,10 @@ public class ClubeResponseDto {
         this.siglaEstado = siglaEstado;
         this.ativo = ativo;
 
-        this.totalPontos = 0; // Inicializa com zero, pode ser atualizado posteriormente
-        this.totalGols = 0; // Inicializa com zero, pode ser atualizado posteriormente
-        this.totalVitorias = 0; // Inicializa com zero, pode ser atualizado posteriormente
-        this.totalJogos = 0; // Inicializa com zero, pode ser atualizado posteriormente
-
-
+        this.totalPontos = 0;
+        this.totalGols = 0;
+        this.totalVitorias = 0;
+        this.totalJogos = 0;
 
 
     }
@@ -81,8 +79,6 @@ public class ClubeResponseDto {
         this.totalGols = clubeSalvo.getTotalGols();
         this.totalVitorias = clubeSalvo.getTotalVitorias();
         this.totalJogos = clubeSalvo.getTotalJogos();
-
-
 
 
         this.ativo = clubeSalvo.isAtivo();
